@@ -1,27 +1,30 @@
-<div align="center"><h1><b>Collab🤝Land Actions Express.js Template</b></h1></div>
+<div align="center"><h1><b>Rarimo Proof of Humanity Collab🤝Land Action</b></h1></div>
 
-## **Introduction** 🙏
+This repo implements an [Collab.Land] action to add `/verify` command to your Discord server and
+allow members to
+verify their humanity using the [Rarimo Proof of Humanity] case.
 
-The repository serves as a Express.js template for implementing Collab.Land actions for Discord interactions. The Collab.Land actions are installed to the Collab.Land bot through the **`/test-flight`** miniapp available in the Collab.Land marketplace.
+## Getting Started
 
-## **Pre-requisites** 💻
+### Pre-requisites
 
-### Environment:
+#### Environment:
 
-- Node.JS 18.14.0 [[Download Here](https://nodejs.org/en/download/)]
-- Typescript 4.9 [[Instructions to Download](https://www.typescriptlang.org/download#:~:text=Globally%20Installing%20TypeScript)]
+- Node.JS 18.14.0 [**[Download Here]**]
+- Typescript 4.9 [**[Instructions to Download]**]
 
-### Code Editors (Optional, but we prefer it!):
+#### Tunnel Forwarding:
 
-- Visual Studio Code _(We love VSCode 💙)_ [[Download Here](https://code.visualstudio.com/)]
-- ESLint Extension for VSCode [[Installation Instructions](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)]
-- Prettier Extension for VSCode [[Installation Instructions](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)]
+- ngrok [**[Installation Instructions]**]
 
-### Tunnel Forwarding:
+#### Switching on signature verification:
 
-- NGROK [[Installation Instructions](https://ngrok.com/docs/getting-started)]
+- In order to verify the webhook requests coming from the Collab.Land bot, please delete
+  the `SKIP_VERIFICATION` variable in your `.env` file and restart the server.
+- Please fetch the public key from the [**[Collab.Land Config]**], and replace
+  your `COLLABLAND_ACTION_PUBLIC_KEY` variable in the `.env` file.
 
-## **Server Setup** ⚙️
+## Setup
 
 ### Starting the server:
 
@@ -29,19 +32,19 @@ The repository serves as a Express.js template for implementing Collab.Land acti
 - Open the folder in a code editor of your choice
 - Install dependencies:
   ```bash
-  npm install
+  yarn install
   ```
 - Build the project:
   ```bash
-  npm run build
+  yarn run build
   ```
-- Start the server (The server starts in port 3000 by default):
+- Start the server (The server starts in port `3000` by default):
   ```bash
-  npm start
+  yarn start
   ```
 - If the server fails due to the port being occupied, start the server in a different port:
   ```bash
-  PORT=5000 npm start
+  PORT=5000 yarn start
   ```
 - To expose your localhost API to public domain, open a new terminal and start NGROK:
   ```bash
@@ -49,39 +52,67 @@ The repository serves as a Express.js template for implementing Collab.Land acti
   ```
 - Copy the `.ngrok.io` link shown in your terminal
 
-### Installing the Collab.Land actions:
+## Installing the Collab.Land actions:
 
-- The API exposes 3 types of Collab.Land actions:
-  - `<NGROK URL>/hello-action` : Sample Discord interaction demo-ing Discord message interactions
-  - `<NGROK URL>/button-action` : Sample Discord interaction demo-ing Discord button interactions
-  - `<NGROK URL>/popup-action` : Sample Discord interaction demo-ing Discord modal interactions
-- Use the `/test-flight install action-url: <Your action URL>` command in the Collab.Land Bot to install the Collab.Land actions.
+- The API exposes such types of Collab.Land actions:
+  - `<NGROK URL>/verify` : Verify Discord server members via [Rarimo Proof of Humanity] use case.
+- Use the `/test-flight install action-url: <Your action URL>` command in the Collab.Land Bot to
+  install the Rarimo Proof of Humanity verification Collab.Land action.
 
-### Switching on signature verification:
-
-- In order to verify the webhook requests coming from the Collab.Land bot, please delete the `SKIP_VERIFICATION` variable in your `.env` file and restart the server.
-- Please fetch the public key from the [[**Collab.Land Config**](https://api-qa.collab.land/config)], and replace your `COLLABLAND_ACTION_PUBLIC_KEY` variable in the `.env` file.
-
-## **API Specifications** 🛠️
+## API Specifications
 
 - The API exposes two routes per slash command:
-  - GET `/hello-action/metadata` : To provide the metadata for the `/hello-action` command
-  - POST `/hello-action/interactions` : To handle the Discord interactions corresponding to the `/hello-action` command
-  - GET `/button-action/metadata` : To provide the metadata for the `/button-action` command
-  - POST `/button-action/interactions` : To handle the Discord interactions corresponding to the `/button-action` command
-  - GET `/popup-action/metadata` : To provide the metadata for the `/popup-action` command
-  - POST `/popup-action/interactions` : To handle the Discord interactions corresponding to the `/popup-action` command
+  - GET `/verify/metadata` : To provide the metadata for the `/verify` command
+  - POST `/verify/interactions` : To handle the Discord interactions corresponding to the `/verify`
+    command
 - The slash commands provide example codes for the following Discord interactions:
-  - `/hello-action` : It shows how to interact with a basic slash command Discord interaction, and then reply to that interaction. Along with that it shows an example of how to edit messages, delete messages or send follow-up messages using Collab.Land actions.
-  - `/button-action` : It shows how to create buttons using Discord interactions, and then respond to the button events.
-  - `/popup-action` : It shows how to send modals for forms using Discord interactions, and then listen for the form submissions and even read data submitted by the user.
+  - `/verify` : It shows how to interact with a basic slash command Discord interaction, and then
+    reply to that interaction.
 
-## **Contributing** 🫶
+## Contributing
 
-- Please go through the following article [[**Link**](https://dev.collab.land/docs/upstream-integrations/build-a-custom-action)] to understand the deep technical details regarding building on the Collab.Land actions platform.
-- In order to change the slash commands for the actions, try editing the `MiniAppManifest` models mentioned in the metadata route handlers [[Here 👀]](src/routes/hello-action.ts#L86)
-- In order to change the logic which runs on the slash commands, try changing the `handle()` function mentioned in the interactions route handlers [[Here 👀]](src/routes/hello-action.ts#L23)
+We welcome contributions from the community! To contribute to this project, follow these steps:
 
----
+1. Please go through the following ["build a custom action"] article to understand the deep
+   technical
+   details regarding building on the [Collab.Land] actions platform.
+1. Fork the repository.
+1. Create a new branch with a descriptive name for your feature or bug fix.
+1. Make your changes and commit them.
+1. Push your changes to your branch on your GitHub fork.
+1. Create a pull request from your branch to the `main` branch of this repository.
 
-<div align="center"><b><i><small>Built with ❤️ and 🤝 by Collab.Land</small></i></b></div>
+Please ensure your pull request adheres to the following guidelines:
+
+- Add a clear pull request title;
+- Add a comprehensive pull request description that includes the motivation behind the changes,
+  steps needed to test them, etc;
+- Update the CHANGELOG.md accordingly;
+- Keep the codebase clean and well-documented;
+- Make sure your code is properly tested;
+- Reference any related issues in your pull request;
+
+The maintainers will review your pull request and may request changes or provide feedback before
+merging. We appreciate your contributions!
+
+## Changelog
+
+For the changelog, see [CHANGELOG.md](./CHANGELOG.md).
+
+## License
+
+This project is under the MIT License — see the [LICENSE](./LICENSE) file for details.
+
+[Rarimo Proof of Humanity]: https://docs.rarimo.com/use-cases/proof-of-humanity
+
+[Installation Instructions]: https://ngrok.com/docs/getting-started
+
+[Download Here]: https://nodejs.org/en/download/
+
+[Collab.Land]: https://www.collab.land/
+
+[Instructions to Download]: https://www.typescriptlang.org/download
+
+[Collab.Land Config]: https://api-qa.collab.land/config
+
+["build a custom action"]: https://dev.collab.land/docs/upstream-integrations/build-a-custom-action

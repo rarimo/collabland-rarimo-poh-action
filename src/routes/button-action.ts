@@ -1,27 +1,24 @@
-import express from "express";
-import {
-  APIInteraction,
-  InteractionType,
-  MessageFlags,
-} from "discord-api-types/v10";
-import { SignatureVerifier } from "../helpers";
 import {
   APIInteractionResponse,
   ApplicationCommandType,
   DiscordActionMetadata,
   InteractionResponseType,
-} from "@collabland/discord";
-import { MiniAppManifest } from "@collabland/models";
+} from '@collabland/discord'
+import { MiniAppManifest } from '@collabland/models'
+import { APIInteraction, InteractionType, MessageFlags } from 'discord-api-types/v10'
+import express from 'express'
 
-const router = express.Router();
+import { SignatureVerifier } from '../helpers'
+
+const router = express.Router()
 
 function handle(interaction: APIInteraction) {
   switch (interaction.type) {
     case InteractionType.ApplicationCommand: {
-      return handleApplicationCommand();
+      return handleApplicationCommand()
     }
     case InteractionType.MessageComponent: {
-      return handleMessageComponent();
+      return handleMessageComponent()
     }
   }
 }
@@ -30,9 +27,9 @@ function handleMessageComponent(): APIInteractionResponse {
   return {
     type: InteractionResponseType.ChannelMessageWithSource,
     data: {
-      content: "You just clicked Test Button.",
+      content: 'You just clicked Test Button.',
     },
-  };
+  }
 }
 
 function handleApplicationCommand(): APIInteractionResponse {
@@ -55,20 +52,20 @@ function handleApplicationCommand(): APIInteractionResponse {
         },
       ],
     },
-  };
+  }
 }
 
-router.get("/metadata", function (req, res) {
+router.get('/metadata', function (req, res) {
   const manifest = new MiniAppManifest({
-    appId: "button-action",
-    developer: "collab.land",
-    name: "ButtonAction",
-    platforms: ["discord"],
-    shortName: "button-action",
-    version: { name: "0.0.1" },
-    website: "https://collab.land",
-    description: "An example Collab.Land action",
-  });
+    appId: 'button-action',
+    developer: 'collab.land',
+    name: 'ButtonAction',
+    platforms: ['discord'],
+    shortName: 'button-action',
+    version: { name: '0.0.1' },
+    website: 'https://collab.land',
+    description: 'An example Collab.Land action',
+  })
   const metadata: DiscordActionMetadata = {
     /**
      * Miniapp manifest
@@ -82,11 +79,11 @@ router.get("/metadata", function (req, res) {
       {
         // Handle `/button-action` slash command
         type: InteractionType.ApplicationCommand,
-        names: ["button-action"],
+        names: ['button-action'],
       },
       {
         type: InteractionType.MessageComponent,
-        ids: ["test-button"],
+        ids: ['test-button'],
       },
     ],
     /**
@@ -97,26 +94,26 @@ router.get("/metadata", function (req, res) {
       // `/button-action <your-name>` slash command
       {
         metadata: {
-          name: "ButtonAction",
-          shortName: "button-action",
+          name: 'ButtonAction',
+          shortName: 'button-action',
         },
-        name: "button-action",
+        name: 'button-action',
         type: ApplicationCommandType.ChatInput,
-        description: "/button-action",
+        description: '/button-action',
         options: [],
       },
     ],
-  };
-  res.send(metadata);
-});
-
-router.post("/interactions", async function (req, res) {
-  const verifier = new SignatureVerifier();
-  const verified = verifier.verify(req, res);
-  if (verified) {
-    const result = await handle(req.body);
-    res.send(result);
   }
-});
+  res.send(metadata)
+})
 
-export default router;
+router.post('/interactions', async function (req, res) {
+  const verifier = new SignatureVerifier()
+  const verified = verifier.verify(req, res)
+  if (verified) {
+    const result = await handle(req.body)
+    res.send(result)
+  }
+})
+
+export default router

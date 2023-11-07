@@ -1,61 +1,62 @@
 #!/usr/bin/env node
 
-import app from "../app";
-import * as http from "http";
-import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
-import debug from "debug";
-import { SignatureVerifier } from "../helpers/verify";
+import debug from 'debug'
+import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+import * as http from 'http'
 
-dotenv.config();
+import app from '../app'
+import { SignatureVerifier } from '../helpers'
+
+dotenv.config()
 /**
  * Module dependencies.
  */
 
-const log = debug("collab-hello-action-express:server");
+const log = debug('collab-hello-action-express:server')
 
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || "3000");
-app.set("port", port);
+const port = normalizePort(process.env.PORT || '3000')
+app.set('port', port)
 
 /**
  * Create HTTP server.
  */
 
-const server = http.createServer(app);
+const server = http.createServer(app)
 
 /**
  * Initialize all services, listen on provided port, on all network interfaces.
  */
 
 Promise.all([SignatureVerifier.initVerifier()])
-  .then((_) => {
-    server.listen(port);
-    server.on("error", onError);
-    server.on("listening", onListening);
+  .then(_ => {
+    server.listen(port)
+    server.on('error', onError)
+    server.on('listening', onListening)
   })
-  .catch((e) => onError(e));
+  .catch(e => onError(e))
 
 /**
  * Normalize a port into a number, string, or false.
  */
 
 function normalizePort(val: string) {
-  const port = parseInt(val, 10);
+  const port = parseInt(val, 10)
 
   if (isNaN(port)) {
     // named pipe
-    return val;
+    return val
   }
 
   if (port >= 0) {
     // port number
-    return port;
+    return port
   }
 
-  return false;
+  return false
 }
 
 /**
@@ -63,25 +64,25 @@ function normalizePort(val: string) {
  */
 
 function onError(error: any) {
-  if (error.syscall !== "listen") {
-    throw error;
+  if (error.syscall !== 'listen') {
+    throw error
   }
 
-  const bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+  const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
-    case "EACCES":
-      console.error(bind + " requires elevated privileges");
-      process.exit(1);
-      break;
-    case "EADDRINUSE":
-      console.error(bind + " is already in use");
-      process.exit(1);
-      break;
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges')
+      process.exit(1)
+      break
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use')
+      process.exit(1)
+      break
     default:
-      throw error;
-      process.exit(1);
+      throw error
+      process.exit(1)
   }
 }
 
@@ -90,7 +91,7 @@ function onError(error: any) {
  */
 
 function onListening() {
-  const addr = server.address();
-  const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr?.port;
-  log("Listening on " + bind);
+  const addr = server.address()
+  const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr?.port
+  log('Listening on ' + bind)
 }

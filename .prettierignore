@@ -2,3 +2,10 @@
 build
 coverage
 dist
+node_modules
+.eslintcache
+.eslintrc.json
+tsconfig.json
+*.md
+.vscode/*
+.yarn/*
