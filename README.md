@@ -11,7 +11,6 @@ verify their humanity using the [Rarimo Proof of Humanity] case.
 #### Environment:
 
 - Node.JS 18.14.0 [**[Download Here]**]
-- Typescript 4.9 [**[Instructions to Download]**]
 
 #### Tunnel Forwarding:
 
@@ -111,8 +110,6 @@ This project is under the MIT License — see the [LICENSE](./LICENSE) file for 
 
 [Collab.Land]: https://www.collab.land/
 
-[Instructions to Download]: https://www.typescriptlang.org/download
-
 [Collab.Land Config]: https://api-qa.collab.land/config
 
-["build a custom action"]: https://dev.collab.land/docs/upstream-integrations/build-a-custom-action
+["build a custom action"]: https://dev.collab.land/docs/upstream-integrations/collab-actions/getting-started-with-collab-actions

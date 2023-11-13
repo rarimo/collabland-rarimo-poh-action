@@ -1,43 +1,34 @@
-import cookieParser from 'cookie-parser'
-import express, { ErrorRequestHandler } from 'express'
-import createError from 'http-errors'
-import logger from 'morgan'
-import path from 'path'
+// Copyright Abridged, Inc. 2023. All Rights Reserved.
+// Node module: @collabland/example-hello-action
+// This file is licensed under the MIT License.
+// License text available at https://opensource.org/licenses/MIT
 
-import routers from './routes'
+import type { ApplicationConfig } from '@loopback/core'
+import { RestApplication } from '@loopback/rest'
+import { fileURLToPath } from 'url'
 
-const app = express()
+import { HelloActionComponent } from './component.js'
+import { CONFIG } from './config.js'
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'pug')
+/**
+ * A demo application to expose REST APIs for Hello action
+ */
+export class HelloActionApplication extends RestApplication {
+  constructor(config?: ApplicationConfig) {
+    super(HelloActionApplication.resolveConfig(config))
+    this.component(HelloActionComponent)
+    const dir = fileURLToPath(new URL('../public', import.meta.url))
+    this.static('/', dir)
+  }
 
-app.use(logger('dev'))
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public')))
-
-app.use('/hello-action', routers.helloAction)
-app.use('/button-action', routers.buttonAction)
-app.use('/popup-action', routers.popupAction)
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404))
-})
-
-// error handler
-const errorHandler: ErrorRequestHandler = function (err, req, res) {
-  // set locals, only providing error in development
-  res.locals.message = err.message
-  res.locals.error = req.app.get('env') === 'development' ? err : {}
-
-  // render the error page
-  res.status(err.status || 500)
-  res.render('error')
+  private static resolveConfig(config?: ApplicationConfig): ApplicationConfig {
+    return {
+      ...config,
+      rest: {
+        port: CONFIG.port,
+        host: CONFIG.host,
+        ...config?.rest,
+      },
+    }
+  }
 }
-
-app.use(errorHandler)
-
-export default app

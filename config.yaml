@@ -1,0 +1,3 @@
+port: 8000
+publicKey: "DhF7T98EBmH1ZFmdGJvBhkmdn3BfAqc3tz8LxER8VH2q"
+loglevel: "debug"
