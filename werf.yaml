@@ -1,40 +1,5 @@
 configVersion: 1
-project: 'collabland-rarimo-poh-action'
+project: "web-client"
 ---
-image: builder
-from: node:18.14.2-alpine
-git:
-- add: /
-  to: /app
-  excludePaths:
-  - .helm
-  - Dockerfile
-  stageDependencies:
-    install:
-    - package.json
-    - yarn.lock
-    setup:
-    - "**/*"
-shell:
-  install:
-  - cd /app
-  - npm i -g @vercel/ncc pkg
-  - yarn install
-  setup:
-  - cd /app
-  - yarn build
-  - ncc build ./dist/server.js
-  - pkg -t node18-alpine-x64 ./dist/index.js  -o /usr/local/bin/rarimo-poh-action
-
----
-image: service
-from: node:18.14.2-alpine
-docker:
-  ENTRYPOINT: rarimo-poh-action
-import:
-  - image: builder
-    add: /usr/local/bin/rarimo-poh-action
-    to: /usr/local/bin/rarimo-poh-action
-    after: setup
-
-
+image: web
+dockerfile: Dockerfile

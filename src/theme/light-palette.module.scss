@@ -1,0 +1,54 @@
+@import '@/styles/light-theme-colors';
+
+/* stylelint-disable property-case */
+/* stylelint-disable property-no-unknown */
+/* stylelint-disable order/properties-order */
+/* stylelint-disable selector-pseudo-class-no-unknown */
+/* stylelint-disable declaration-empty-line-before */
+:export {
+  colBgDivider: $col-bg-divider;
+  colTxtPrimary: $col-txt-primary;
+  colTxtSecondary: $col-txt-secondary;
+  colTxtDisabled: $col-txt-disabled;
+  colTxtHover: $col-txt-hover;
+  colTxtSelected: $col-txt-selected;
+  colTxtFocus: $col-txt-focus;
+  colTxtFocusVisible: $col-txt-focus-visible;
+  colPrimaryMain: $col-primary-main;
+  colPrimaryDark: $col-primary-dark;
+  colPrimaryLight: $col-primary-light;
+  colPrimaryContrast: $col-primary-contrast;
+  colSecondaryMain: $col-secondary-main;
+  colSecondaryDark: $col-secondary-dark;
+  colSecondaryLight: $col-secondary-light;
+  colSecondaryContrast: $col-secondary-contrast;
+  colErrorMain: $col-error-main;
+  colErrorDark: $col-error-dark;
+  colErrorLight: $col-error-light;
+  colErrorContrast: $col-error-contrast;
+  colWarningMain: $col-warning-main;
+  colWarningDark: $col-warning-dark;
+  colWarningLight: $col-warning-light;
+  colWarningContrast: $col-warning-contrast;
+  colInfoMain: $col-info-main;
+  colInfoDark: $col-info-dark;
+  colInfoLight: $col-info-light;
+  colInfoContrast: $col-info-contrast;
+  colSuccessMain: $col-success-main;
+  colSuccessDark: $col-success-dark;
+  colSuccessLight: $col-success-light;
+  colSuccessContrast: $col-success-contrast;
+  colActionActive: $col-action-active;
+  colActionHover: $col-action-hover;
+  colActionSelected: $col-action-selected;
+  colActionFocus: $col-action-focus;
+  colActionDisabled: $col-action-disabled;
+  colActionDisabledBg: $col-action-disabled-bg;
+  colBgPrimary: $col-bg-primary;
+  colBgPaper: $col-bg-paper;
+}
+/* stylelint-enable property-case */
+/* stylelint-enable property-no-unknown */
+/* stylelint-enable order/properties-order */
+/* stylelint-enable selector-pseudo-class-no-unknown */
+/* stylelint-enable declaration-empty-line-before */

@@ -1,0 +1,30 @@
+/* stylelint-disable unit-disallowed-list */
+@import 'light-theme-colors';
+@import 'functions';
+
+.App__light {
+  &, *:before, *:after {
+    /* Color variables */
+    --col-bg-primary: #{$col-bg-primary};
+    --col-divider: #{$col-bg-divider};
+    --col-txt-primary: #{$col-txt-primary};
+    --col-txt-secondary: #{$col-txt-secondary};
+    --col-txt-focus-visible: #{$col-txt-focus-visible};
+    --col-primary-outlined-border: #{$col-primary-outlined-border};
+    --col-primary-hover: #{$col-primary-hover};
+    --col-primary-main: #{$col-primary-main};
+    --col-text-focus: #0000001F;
+
+    /* UI variables */
+    --ui-border: #{to-rem(1)} solid #{$col-bg-divider};
+    --ui-app-background: #{$col-bg-primary};
+    --ui-app-home-gradient-2: linear-gradient(0deg, #fbfbfb 0%, rgba(255 255 255 / 0) 94.59%);
+    --ui-app-home-gradient:
+      radial-gradient(84.49% 84.49% at 50% -29.58%, rgba(138 181 164 / 0.3) 0%, rgba(138 181 164 / 0) 100%),
+      linear-gradient(0deg, rgba(255 255 255 / 0.01), rgba(255 255 255 / 0.01));
+    --ui-dropdown-shadow: 0 5px 5px -3px rgba(0 0 0 / 0.2), 0 8px 10px 1px rgba(0 0 0 / 0.14), 0 3px 14px 2px rgba(0 0 0 / 0.12);
+    --ui-paper-elevation-1: #ffffff;
+    --ui-paper-elevation-2: #ffffff;
+    --ui-paper-elevation-8: #ffffff;
+  }
+}

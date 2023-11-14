@@ -12,10 +12,14 @@
 # testing
 /coverage
 
+# next.js
+/.next/
+/out/
+
 # production
 /build
-/dist
-.env
+
+.env.local
 
 # misc
 .DS_Store
