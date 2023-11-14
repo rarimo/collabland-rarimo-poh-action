@@ -1,2 +1,3 @@
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 NEXT_PUBLIC_LOG_LEVEL="debug"
+NEXT_PUBLIC_DB_URL="postgresql://rarimo-poh:rarimo-poh@localhost:15432/rarimo-poh-db?sslmode=disable"

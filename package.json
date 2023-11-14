@@ -25,7 +25,9 @@
     "lint": "yarn lint:scripts && yarn lint:styles && yarn tsc --noEmit",
     "lint:scripts": "next lint",
     "lint:styles": "stylelint \"src/**/*.{css,sass,scss}\" --max-warnings=0",
-    "rsc": "node scripts/release-sanity-check.mjs"
+    "rsc": "node scripts/release-sanity-check.mjs",
+    "migrate-up": "knex migrate:up ",
+    "migrate-down": "knex migrate:down"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
@@ -34,9 +36,12 @@
     "@formatjs/intl-localematcher": "^0.4.0",
     "@mui/icons-material": "^5.14.3",
     "@mui/material": "^5.14.3",
+    "dotenv": "^16.3.1",
+    "knex": "^3.0.1",
     "loglevel": "^1.8.1",
     "next": "^13.5.5",
     "next-international": "^0.9.3",
+    "pg": "^8.11.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "winston": "^3.11.0",
@@ -45,6 +50,7 @@
   "devDependencies": {
     "@comparaonline/stylelint-config-scss-modules": "^1.1.0",
     "@types/node": "20.4.5",
+    "@types/pg": "^8",
     "@types/prettier": "^3",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
