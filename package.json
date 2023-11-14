@@ -19,9 +19,9 @@
     "pre-push": "yarn rsc"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 8000",
     "build": "next build",
-    "start": "next start",
+    "start": "next start --port 8000",
     "lint": "yarn lint:scripts && yarn lint:styles && yarn tsc --noEmit",
     "lint:scripts": "next lint",
     "lint:styles": "stylelint \"src/**/*.{css,sass,scss}\" --max-warnings=0",

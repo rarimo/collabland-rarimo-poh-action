@@ -1,6 +1,13 @@
 version: "3.7"
 
 services:
+  rarimo-poh:
+    image: rarimo-poh:latest
+    restart: unless-stopped
+    entrypoint: sh -c "node_modules/.bin/knex migrate:up && node_modules/.bin/next start"
+    ports:
+      - "8000:8000"
+
   rarimo-poh-db:
     image: postgres:13
     restart: unless-stopped
