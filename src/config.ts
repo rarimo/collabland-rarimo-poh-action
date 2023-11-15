@@ -9,6 +9,8 @@ type Config = {
   appDescription: string
   loglevel: string
   dbUrl: string
+  skipVerification: boolean
+  collablandActionPublicKey: string
 }
 
 let config: Config | undefined = undefined
@@ -19,6 +21,8 @@ const validationSchema = yup.object({
   appName: yup.string().required(),
   appDescription: yup.string().required(),
   dbUrl: yup.string().required(),
+  skipVerification: yup.boolean().optional().default(false),
+  collablandActionPublicKey: yup.string().required(),
 })
 
 const loadConfiguration = (): Config => {
@@ -32,6 +36,8 @@ const loadConfiguration = (): Config => {
     loglevel: env(process.env.NEXT_PUBLIC_LOG_LEVEL),
     appUrl: env(process.env.NEXT_PUBLIC_APP_URL),
     dbUrl: env(process.env.NEXT_PUBLIC_DB_URL),
+    skipVerification: Boolean(process.env.NEXT_PUBLIC_SKIP_VERIFICATION),
+    collablandActionPublicKey: env(process.env.NEXT_PUBLIC_COLLABLAND_PUBLIC_KEY),
   }
   /* eslint-enable prettier/prettier */
 

@@ -1,6 +1,6 @@
 import { Knex } from 'knex'
 
-import { VerifiedRoleRow, VerifiedRolesQ } from '@/types'
+import { VerifiedRolesQ } from '@/types'
 
 export const makeVerifiedRolesQ = (db: Knex): VerifiedRolesQ => {
   const table = () => db('verified_roles')
@@ -13,7 +13,7 @@ export const makeVerifiedRolesQ = (db: Knex): VerifiedRolesQ => {
 
     async set(guildID: string, roleID: string) {
       await table()
-        .insert<VerifiedRoleRow>([{ guild_id: guildID, role_id: roleID }])
+        .insert([{ guild_id: guildID, role_id: roleID }])
         .onConflict('guild_id')
         .ignore()
     },
