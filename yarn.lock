@@ -1729,7 +1729,7 @@ __metadata:
     knex: "npm:^3.0.1"
     loglevel: "npm:^1.8.1"
     next: "npm:^13.5.5"
-    next-international: "npm:^0.9.3"
+    next-international: "npm:^1.1.4"
     pg: "npm:^8.11.3"
     prettier: "npm:^3.0.0"
     react: "npm:18.2.0"
@@ -3718,7 +3718,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"international-types@npm:^0.8.0":
+"international-types@npm:^0.8.1":
   version: 0.8.1
   resolution: "international-types@npm:0.8.1"
   checksum: a568f64a398f74affd73336e8eda488075ec328fc20e87721555e0b45e791f72132df19cadeca01d62100b77825b8da0efcfb82cdcdba021f7cc3ffe6542e537
@@ -5021,14 +5021,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-international@npm:^0.9.3":
-  version: 0.9.5
-  resolution: "next-international@npm:0.9.5"
+"next-international@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "next-international@npm:1.1.4"
   dependencies:
     client-only: "npm:^0.0.1"
-    international-types: "npm:^0.8.0"
+    international-types: "npm:^0.8.1"
     server-only: "npm:^0.0.1"
-  checksum: df0aa5ca4fba69ee5bd37b47ffef945348769db471718daf210cb886635c48aac041c004ba2ad52102d873e47db093588cbca61f88fbfe806168d79ccb37939c
+  checksum: 3253421d3fa640e20a977f60d57b881b89cc55f5b572eb0389256aceacd41ec12f4b1ef3e9fac498afe18d6768eabc61b1e624d99df9b6f0828121ccd3d21082
   languageName: node
   linkType: hard
 

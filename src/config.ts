@@ -8,6 +8,7 @@ type Config = {
   appName: string
   appDescription: string
   loglevel: string
+  dbUrl: string
 }
 
 let config: Config | undefined = undefined
@@ -17,16 +18,22 @@ const validationSchema = yup.object({
   appUrl: yup.string().required(),
   appName: yup.string().required(),
   appDescription: yup.string().required(),
+  dbUrl: yup.string().required(),
 })
 
 const loadConfiguration = (): Config => {
+  /* eslint-disable prettier/prettier */
   config = {
+    // static
+    appName: 'Rarimo Proof of Humanity Verify Page',
+    appDescription: "Verify Discord server's members humanity using the Rarimo Proof of Humanity case and Collab.land bot.",
+
+    // configurable
     loglevel: env(process.env.NEXT_PUBLIC_LOG_LEVEL),
     appUrl: env(process.env.NEXT_PUBLIC_APP_URL),
-    appName: 'Rarimo Proof of Humanity Verify Page',
-    // eslint-disable-next-line
-    appDescription: "Verify Discord server's members humanity using the Rarimo Proof of Humanity case and Collab.land bot.",
+    dbUrl: env(process.env.NEXT_PUBLIC_DB_URL),
   }
+  /* eslint-enable prettier/prettier */
 
   return validationSchema.validateSync(config, {
     strict: true,
@@ -41,12 +48,9 @@ export const METADATA: Metadata = {
   description: CONFIG.appDescription,
   applicationName: CONFIG.appName,
   title: CONFIG.appName,
-  themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#000000' },
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-  ],
-  colorScheme: 'dark light',
-  // eslint-disable-next-line
+  themeColor: '#ffffff',
+  colorScheme: 'light',
+  // eslint-disable-next-line prettier/prettier
   viewport: 'width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0',
   creator: 'Zero Block Global Foundation',
   openGraph: {
