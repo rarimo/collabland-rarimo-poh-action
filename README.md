@@ -3,6 +3,25 @@
 This repo implements an [Collab.Land] action to add `/verify` command to your Discord server and
 allow members to verify their humanity using the [Rarimo Proof of Humanity] case.
 
+## Table of Contents
+
+- [Getting Started](#getting-started)
+  * [Pre-requisites](#pre-requisites)
+    + [Environment:](#environment-)
+    + [Tunnel Forwarding:](#tunnel-forwarding-)
+- [Configuration](#configuration)
+  * [Slash command names](#slash-command-names)
+- [Setup](#setup)
+  * [Starting the server:](#starting-the-server-)
+- [Run with Docker](#run-with-docker)
+  * [Build](#build)
+  * [Run](#run)
+- [Installing the Collab.Land actions:](#installing-the-collabland-actions-)
+- [API Specifications](#api-specifications)
+- [Contributing](#contributing)
+- [Changelog](#changelog)
+- [License](#license)
+
 ## Getting Started
 
 ### Pre-requisites
@@ -31,7 +50,7 @@ Slash command names could be changed in `.env` file, if needed, by the default, 
 `verify` accordingly:
 
 ```bash
-# file .env
+# file: .env
 
 NEXT_PUBLIC_SETUP_COMMAND_NAME="my-setup-command"
 NEXT_PUBLIC_VERIFY_COMMAND_NAME="my-verify-command
