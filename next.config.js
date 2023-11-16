@@ -10,7 +10,7 @@ module.exports = {
   },
   // https://github.com/vercel/next.js/issues/52091
   experimental: {
-    serverComponentsExternalPackages: ['knex'],
+    serverComponentsExternalPackages: ['knex', '@collabland/discord', '@collabland/models'],
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.externals.push({

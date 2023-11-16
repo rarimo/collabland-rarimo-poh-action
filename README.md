@@ -1,8 +1,7 @@
-<div align="center"><h1><b>Rarimo Proof of Humanity Collab🤝Land Action</b></h1></div>
+<div align="center"><h1><b>Rarimo Proof of Humanity Collab.Land Action</b></h1></div>
 
 This repo implements an [Collab.Land] action to add `/verify` command to your Discord server and
-allow members to
-verify their humanity using the [Rarimo Proof of Humanity] case.
+allow members to verify their humanity using the [Rarimo Proof of Humanity] case.
 
 ## Getting Started
 
@@ -10,18 +9,21 @@ verify their humanity using the [Rarimo Proof of Humanity] case.
 
 #### Environment:
 
-- Node.JS 18.14.0 [**[Download Here]**]
+- **[Node.JS >= version 18]**
+- **[Docker]**
 
 #### Tunnel Forwarding:
 
-- ngrok [**[Installation Instructions]**]
+- **[ngrok]**
 
-#### Switching on signature verification:
+## Configuration
 
-- In order to verify the webhook requests coming from the Collab.Land bot, please delete
-  the `SKIP_VERIFICATION` variable in your `.env` file and restart the server.
-- Please fetch the public key from the [**[Collab.Land Config]**], and replace
-  your `COLLABLAND_ACTION_PUBLIC_KEY` variable in the `.env` file.
+- In order to verify the webhook requests coming from the Collab.Land bot, please set
+  the `NEXT_PUBLIC_SKIP_VERIFICATION` variable in your `.env` file to `false`.
+- Please, fetch the public key from the [**[Collab.Land Config]**], and replace
+  your `NEXT_PUBLIC_COLLABLAND_PUBLIC_KEY` variable in the `.env` file.
+
+Check the `.env` file [example config file] for more details.
 
 ## Setup
 
@@ -33,48 +35,64 @@ verify their humanity using the [Rarimo Proof of Humanity] case.
   ```bash
   yarn install
   ```
-- Build the project:
+- Run Postgres in Docker:
   ```bash
-  yarn run build
+  docker-compose up -d
   ```
-- Start the server (The server starts in port `3000` by default):
+- Start the server (The server starts in port `8000` by default):
   ```bash
-  yarn start
+  yarn dev
   ```
-- If the server fails due to the port being occupied, start the server in a different port:
+- If the server fails due to the port being occupied, change the server port in the [package.json]
+  file and in the `.env` file accordingly:
+  ```json
+  // file: package.json
+
+  {
+    "scripts": {
+      "dev-server": "next dev -p <PORT>"
+    }
+  }
+  ```
   ```bash
-  PORT=5000 yarn start
+  # file: .env
+
+  NEXT_PUBLIC_APP_URL="http://localhost:<PORT>"
   ```
 - To expose your localhost API to public domain, open a new terminal and start NGROK:
   ```bash
   ngrok http <PORT>
   ```
-- Copy the `.ngrok.io` link shown in your terminal
+- Copy the `.ngrok.io` link shown in your terminal:
+  ```bash
+  # Example:
+
+  https://0c49-2601-646-9e00-80-3964-47d-7146-ff13.ngrok.io/
+  ```
 
 ## Installing the Collab.Land actions:
 
-- The API exposes such types of Collab.Land actions:
-  - `<NGROK URL>/verify` : Verify Discord server members via [Rarimo Proof of Humanity] use case.
-- Use the `/test-flight install action-url: <Your action URL>` command in the Collab.Land Bot to
-  install the Rarimo Proof of Humanity verification Collab.Land action.
+- Follow these steps to install the Collab.Land actions: [Test the Actions in a Discord server]
+- Setup action with the `/setup` command
+- Verify your humanity with the `/verify` command
 
 ## API Specifications
 
 - The API exposes two routes per slash command:
-  - GET `/verify/metadata` : To provide the metadata for the `/verify` command
-  - POST `/verify/interactions` : To handle the Discord interactions corresponding to the `/verify`
+  - GET `/verify/metadata`: To provide the metadata for the `/verify` command
+  - POST `/verify/interactions`: To handle the Discord interactions corresponding to the `/verify`
     command
 - The slash commands provide example codes for the following Discord interactions:
-  - `/verify` : It shows how to interact with a basic slash command Discord interaction, and then
-    reply to that interaction.
+  - `/setup`: Allows you to setup Rarimo Proof of Humanity Verify Action for your Discord server.
+  - `/verify`: Verify your humanity with Rarimo Proof of Humanity use case and get the verified role
+    in your Discord server.
 
 ## Contributing
 
 We welcome contributions from the community! To contribute to this project, follow these steps:
 
 1. Please go through the following ["build a custom action"] article to understand the deep
-   technical
-   details regarding building on the [Collab.Land] actions platform.
+   technical details regarding building on the [Collab.Land] actions platform.
 1. Fork the repository.
 1. Create a new branch with a descriptive name for your feature or bug fix.
 1. Make your changes and commit them.
@@ -104,12 +122,20 @@ This project is under the MIT License — see the [LICENSE](./LICENSE) file for 
 
 [Rarimo Proof of Humanity]: https://docs.rarimo.com/use-cases/proof-of-humanity
 
-[Installation Instructions]: https://ngrok.com/docs/getting-started
+[ngrok]: https://ngrok.com/docs/getting-started
 
-[Download Here]: https://nodejs.org/en/download/
+[Node.JS >= version 18]: https://nodejs.org/en/download/
+
+[Docker]: https://docs.docker.com/engine/install/
 
 [Collab.Land]: https://www.collab.land/
 
 [Collab.Land Config]: https://api-qa.collab.land/config
 
 ["build a custom action"]: https://dev.collab.land/docs/upstream-integrations/collab-actions/getting-started-with-collab-actions
+
+[example config file]: ./env-example
+
+[package.json]: ./package.json
+
+[Test the Actions in a Discord server]: https://dev.collab.land/docs/upstream-integrations/collab-actions/getting-started-with-collab-actions#test-the-actions-in-a-discord-server

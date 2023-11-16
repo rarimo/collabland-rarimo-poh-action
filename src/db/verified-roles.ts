@@ -15,7 +15,7 @@ export const makeVerifiedRolesQ = (db: Knex): VerifiedRolesQ => {
       await table()
         .insert([{ guild_id: guildID, role_id: roleID }])
         .onConflict('guild_id')
-        .ignore()
+        .merge() // update role id if guild already exists or action was reinstalled with new role id
     },
   }
 }

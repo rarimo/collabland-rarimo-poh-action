@@ -64,12 +64,12 @@ export const METADATA: Metadata = {
     description: CONFIG.appDescription,
     locale: 'en_GB',
     type: 'website',
-    images: '/preview-card.jpg',
+    images: '/thumbnail.jpg',
   },
   twitter: {
     description: CONFIG.appDescription,
     title: CONFIG.appName,
     card: 'summary_large_image',
-    images: '/preview-card.jpg',
+    images: '/thumbnail.jpg',
   },
 }

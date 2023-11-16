@@ -31,6 +31,8 @@
     "migrate-down": "knex migrate:down"
   },
   "dependencies": {
+    "@collabland/discord": "^0.27.0",
+    "@collabland/models": "^0.28.0",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
