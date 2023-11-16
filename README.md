@@ -7,16 +7,16 @@ allow members to verify their humanity using the [Rarimo Proof of Humanity] case
 
 - [Getting Started](#getting-started)
   * [Pre-requisites](#pre-requisites)
-    + [Environment:](#environment-)
-    + [Tunnel Forwarding:](#tunnel-forwarding-)
+    + [Environment](#environment)
+    + [Tunnel Forwarding](#tunnel-forwarding)
 - [Configuration](#configuration)
   * [Slash command names](#slash-command-names)
 - [Setup](#setup)
-  * [Starting the server:](#starting-the-server-)
+  * [Starting the server](#starting-the-server)
 - [Run with Docker](#run-with-docker)
   * [Build](#build)
   * [Run](#run)
-- [Installing the Collab.Land actions:](#installing-the-collabland-actions-)
+- [Installing the Collab.Land actions](#installing-the-collabland-actions)
 - [API Specifications](#api-specifications)
 - [Contributing](#contributing)
 - [Changelog](#changelog)
@@ -26,12 +26,12 @@ allow members to verify their humanity using the [Rarimo Proof of Humanity] case
 
 ### Pre-requisites
 
-#### Environment:
+#### Environment
 
 - **[Node.JS >= version 18]**
 - **[Docker]**
 
-#### Tunnel Forwarding:
+#### Tunnel Forwarding
 
 - **[ngrok]**
 
@@ -58,7 +58,7 @@ NEXT_PUBLIC_VERIFY_COMMAND_NAME="my-verify-command
 
 ## Setup
 
-### Starting the server:
+### Starting the server
 
 - Clone the repository to your machine
 - Open the folder in a code editor of your choice
@@ -157,7 +157,7 @@ docker build . -t rarimo-poh:latest
           - "<PORT>:8000"
     ```
 
-## Installing the Collab.Land actions:
+## Installing the Collab.Land actions
 
 - Follow these steps to install the Collab.Land actions: [Test the Actions in a Discord server]
 - Setup action with the `/setup` command
