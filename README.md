@@ -70,6 +70,9 @@ Check the `.env` file [example config file] for more details.
   https://0c49-2601-646-9e00-80-3964-47d-7146-ff13.ngrok.io/
   ```
 
+## Run with Docker
+
+
 ## Installing the Collab.Land actions:
 
 - Follow these steps to install the Collab.Land actions: [Test the Actions in a Discord server]

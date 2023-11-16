@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import * as yup from 'yup'
 
+import { DEFAULT_SETUP_ACTION_NAME, DEFAULT_VERIFY_ACTION_NAME } from '@/const'
+
 const env = (value?: string): string => value ?? ''
 
 type Config = {
@@ -11,6 +13,8 @@ type Config = {
   dbUrl: string
   skipVerification: boolean
   collablandActionPublicKey: string
+  setupActionName: string
+  verifyActionName: string
 }
 
 let config: Config | undefined = undefined
@@ -23,6 +27,8 @@ const validationSchema = yup.object({
   dbUrl: yup.string().required(),
   skipVerification: yup.boolean().optional().default(false),
   collablandActionPublicKey: yup.string().required(),
+  setupActionName: yup.string().optional().default(DEFAULT_SETUP_ACTION_NAME),
+  verifyActionName: yup.string().optional().default(DEFAULT_VERIFY_ACTION_NAME),
 })
 
 const loadConfiguration = (): Config => {
@@ -38,6 +44,8 @@ const loadConfiguration = (): Config => {
     dbUrl: env(process.env.NEXT_PUBLIC_DB_URL),
     skipVerification: Boolean(process.env.NEXT_PUBLIC_SKIP_VERIFICATION),
     collablandActionPublicKey: env(process.env.NEXT_PUBLIC_COLLABLAND_PUBLIC_KEY),
+    setupActionName: env(process.env.NEXT_PUBLIC_SETUP_ACTION_NAME),
+    verifyActionName: env(process.env.NEXT_PUBLIC_VERIFY_ACTION_NAME),
   }
   /* eslint-enable prettier/prettier */
 

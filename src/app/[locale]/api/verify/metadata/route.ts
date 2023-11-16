@@ -5,7 +5,8 @@ import {
   InteractionType,
 } from '@collabland/discord'
 
-import { MANIFEST, SETUP_ACTION_NAME, SETUP_ACTION_OPTION_NAME, VERIFY_ACTION_NAME } from '@/const'
+import { CONFIG } from '@/config'
+import { MANIFEST, SETUP_ACTION_OPTION_NAME } from '@/const'
 
 export const GET = () => {
   const metadata: DiscordActionMetadata = {
@@ -19,12 +20,12 @@ export const GET = () => {
      */
     supportedInteractions: [
       {
-        // Handle `/setup` slash command
+        // Handle setup slash command
         type: InteractionType.ApplicationCommand,
         names: ['setup'],
       },
       {
-        // Handle `/verify <role>` slash command
+        // Handle verify <role> slash command
         type: InteractionType.ApplicationCommand,
         names: ['verify'],
       },
@@ -34,14 +35,14 @@ export const GET = () => {
      * Discord guild upon installation.
      */
     applicationCommands: [
-      // `/setup` slash command
+      // setup slash command
       {
         metadata: {
           name: 'Setup Rarimo Proof of Humanity Verify Action',
-          shortName: SETUP_ACTION_NAME,
+          shortName: CONFIG.setupActionName,
           supportedEnvs: ['production', 'development'],
         },
-        name: SETUP_ACTION_NAME,
+        name: CONFIG.setupActionName,
         type: ApplicationCommandType.ChatInput,
         description: 'Allows you to setup Rarimo Proof of Humanity Verify Action',
         options: [
@@ -53,14 +54,14 @@ export const GET = () => {
           },
         ],
       },
-      // `/verify` slash command
+      // verify slash command
       {
         metadata: {
           name: 'Verify your humanity with Rarimo Proof of Humanity use case',
-          shortName: VERIFY_ACTION_NAME,
+          shortName: CONFIG.verifyActionName,
           supportedEnvs: ['production', 'development'],
         },
-        name: VERIFY_ACTION_NAME,
+        name: CONFIG.verifyActionName,
         type: ApplicationCommandType.ChatInput,
         description: 'Allows you to verify your humanity with Rarimo Proof of Humanity use case',
         options: [],

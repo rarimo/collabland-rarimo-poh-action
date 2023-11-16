@@ -29,7 +29,7 @@ export const handleVerifyAction = async (interaction: DiscordActionRequest) => {
     })
   }
 
-  const redirectUrl = new URL(join(CONFIG.appUrl))
+  const redirectUrl = new URL(CONFIG.appUrl)
   redirectUrl.searchParams.set('guild_id', guildId)
 
   const imageUrl =
@@ -58,7 +58,7 @@ export const handleVerifyAction = async (interaction: DiscordActionRequest) => {
           components: [
             {
               style: ButtonStyle.Link,
-              label: 'Verify',
+              label: 'Verify Your Humanity',
               type: ComponentType.Button,
               url: redirectUrl.toString(),
             },
