@@ -25,6 +25,18 @@ allow members to verify their humanity using the [Rarimo Proof of Humanity] case
 
 Check the `.env` file [example config file] for more details.
 
+### Slash command names
+
+Slash command names could be changed in `.env` file, if needed, by the default, they are `setup` and
+`verify` accordingly:
+
+```bash
+# file .env
+
+NEXT_PUBLIC_SETUP_COMMAND_NAME="my-setup-command"
+NEXT_PUBLIC_VERIFY_COMMAND_NAME="my-verify-command
+```
+
 ## Setup
 
 ### Starting the server:
@@ -74,6 +86,14 @@ Check the `.env` file [example config file] for more details.
 
 ### Build
 
+Before the build replace database url in the `.env` file with the following:
+
+```bash
+# file: .env
+
+NEXT_PUBLIC_DB_URL="postgresql://rarimo-poh:rarimo-poh@rarimo-poh-db:5432/rarimo-poh-db?sslmode=disable"
+```
+
 To build the Docker image, run the following command:
 
 ```bash
@@ -82,42 +102,41 @@ docker build . -t rarimo-poh:latest
 
 ### Run
 
-Uncomment following lines in the [docker-compose.yml](./docker-compose.yml) file:
+1. Uncomment following lines in the [docker-compose.yml](./docker-compose.yml) file:
+    ```yaml
+    # file: docker-compose.yml
 
-```yaml
-# file: docker-compose.yml
+    # uncomment to test local build
+    #
+    #  rarimo-poh:
+    #    image: rarimo-poh:latest
+    #    restart: unless-stopped
+    #    entrypoint: sh -c "node_modules/.bin/knex migrate:up && node_modules/.bin/next start"
+    #    ports:
+    #      - "8000:8000"
+    ```
 
-# uncomment to test local build
-#
-#  rarimo-poh:
-#    image: rarimo-poh:latest
-#    restart: unless-stopped
-#    entrypoint: sh -c "node_modules/.bin/knex migrate:up && node_modules/.bin/next start"
-#    ports:
-#      - "8000:8000"
-```
+2. Run the following command:
 
-Then, run the following command:
+    ```bash
+    docker-compose up -d
+    ```
 
-```bash
-docker-compose up -d
-```
+    Application will be available at `http://localhost:8000`, if you didn't change the port in the
+    [package.json] file and in the `.env` file, otherwise, you have to change the port accordingly in
+    the `docker-compose.yml` file in the `ports` section:
 
-Application will be available at `http://localhost:8000`, if you didn't change the port in the
-[package.json] file and in the `.env` file, otherwise, you have to change the port accordingly in
-the `docker-compose.yml` file in the `ports` section:
+    ```yaml
+    # file: docker-compose.yml
 
-```yaml
-# file: docker-compose.yml
-
-services:
-  rarimo-poh:
-    image: rarimo-poh:latest
-    restart: unless-stopped
-    entrypoint: sh -c "node_modules/.bin/knex migrate:up && node_modules/.bin/next start"
-    ports:
-      - "<PORT>:8000"
-```
+    services:
+      rarimo-poh:
+        image: rarimo-poh:latest
+        restart: unless-stopped
+        entrypoint: sh -c "node_modules/.bin/knex migrate:up && node_modules/.bin/next start"
+        ports:
+          - "<PORT>:8000"
+    ```
 
 ## Installing the Collab.Land actions:
 
