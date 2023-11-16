@@ -72,6 +72,52 @@ Check the `.env` file [example config file] for more details.
 
 ## Run with Docker
 
+### Build
+
+To build the Docker image, run the following command:
+
+```bash
+docker build . -t rarimo-poh:latest
+```
+
+### Run
+
+Uncomment following lines in the [docker-compose.yml](./docker-compose.yml) file:
+
+```yaml
+# file: docker-compose.yml
+
+# uncomment to test local build
+#
+#  rarimo-poh:
+#    image: rarimo-poh:latest
+#    restart: unless-stopped
+#    entrypoint: sh -c "node_modules/.bin/knex migrate:up && node_modules/.bin/next start"
+#    ports:
+#      - "8000:8000"
+```
+
+Then, run the following command:
+
+```bash
+docker-compose up -d
+```
+
+Application will be available at `http://localhost:8000`, if you didn't change the port in the
+[package.json] file and in the `.env` file, otherwise, you have to change the port accordingly in
+the `docker-compose.yml` file in the `ports` section:
+
+```yaml
+# file: docker-compose.yml
+
+services:
+  rarimo-poh:
+    image: rarimo-poh:latest
+    restart: unless-stopped
+    entrypoint: sh -c "node_modules/.bin/knex migrate:up && node_modules/.bin/next start"
+    ports:
+      - "<PORT>:8000"
+```
 
 ## Installing the Collab.Land actions:
 
