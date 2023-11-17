@@ -11,7 +11,7 @@ import { NextAppDirEmotionCacheProvider } from './emotion-cache'
 export function ThemeRegistry({ children }: { children: ReactNode }) {
   const theme = createTheme({
     palette: {
-      mode: 'light',
+      mode: 'dark',
       ...PALETTE,
     },
     typography: TYPOGRAPHY_THEME,

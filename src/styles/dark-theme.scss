@@ -1,0 +1,30 @@
+@import 'dark-theme-colors';
+@import 'functions';
+
+.app {
+  &, *:before, *:after {
+    /* Color variables */
+    --col-bg-primary: #{$col-bg-primary};
+    --col-divider: #{$col-bg-divider};
+    --col-txt-primary: #{$col-txt-primary};
+    --col-txt-secondary: #{$col-txt-secondary};
+    --col-primary-outlined-border: #{$col-primary-outlined-border};
+    --col-primary-hover: #{$col-primary-hover};
+    --col-primary-main: #{$col-primary-main};
+    --col-text-focus: #ffffff1F;
+    --col-txt-focus-visible: #{$col-txt-focus-visible};
+    --col-action-active: #{$col-action-active};
+
+    /* UI variables */
+    --ui-border: #{to-rem(1)} solid #{$col-bg-divider};
+    --ui-app-background: #{$col-bg-primary};
+    --ui-app-home-gradient-2: linear-gradient(0deg, #0D0D0D 0%, rgba(0 0 0 / 0) 94.59%);
+    --ui-app-home-gradient:
+      radial-gradient(84.49% 84.49% at 50% -29.58%, rgba(138 181 164 / 0.1) 0%, rgba(138 181 164 / 0) 100%),
+      linear-gradient(0deg, rgba(#0D0D0D / 0.01), rgba(#0D0D0D / 0.01));
+    --ui-dropdown-shadow: unset;
+    --ui-paper-elevation-1: #171717;
+    --ui-paper-elevation-2: #232323;
+    --ui-paper-elevation-8: #2E2E2E;
+  }
+}

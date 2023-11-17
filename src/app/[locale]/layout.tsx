@@ -1,8 +1,12 @@
 import '@/styles/index.scss'
 
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import localFont from 'next/font/local'
 import { ReactNode } from 'react'
 
+import Logo from '@/components/Logo'
 import { I18nProvider, ThemeRegistry } from '@/providers'
 
 const inter = localFont({
@@ -50,9 +54,106 @@ export default function RootLayout({
 }) {
   return (
     <html lang={params.locale} className={inter.className}>
-      <body className={'App__light'}>
+      <body className={'app'}>
         <ThemeRegistry>
-          <I18nProvider locale={params.locale}>{children}</I18nProvider>
+          <I18nProvider locale={params.locale}>
+            <Box
+              component='main'
+              sx={{
+                display: 'flex',
+                flex: 1,
+                bgcolor: 'var(--ui-app-background)',
+                zIndex: 2,
+              }}
+            >
+              <Box
+                sx={{
+                  position: 'absolute',
+                  minHeight: 661,
+                  height: 661,
+                  width: '100%',
+                  background: 'var(--ui-app-home-gradient-2)',
+                }}
+              >
+                <Box
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    background: 'var(--ui-app-home-gradient)',
+                  }}
+                />
+              </Box>
+              <img
+                src={'/squares.png'}
+                alt=''
+                width={'100%'}
+                height={650}
+                style={{
+                  position: 'absolute',
+                  objectFit: 'cover',
+                  pointerEvents: 'none',
+                  zIndex: '-1',
+                }}
+              />
+              <AppBar
+                position='fixed'
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  boxShadow: 'none',
+                  bgcolor: 'transparent',
+                  backgroundImage: 'none',
+                  p: {
+                    xs: 'var(--ui-header-padding-xs)',
+                    sm: 'var(--ui-header-padding-sm)',
+                    lg: 'var(--ui-header-padding-lg)',
+                  },
+                }}
+              >
+                <Stack
+                  flexDirection='row'
+                  alignItems='center'
+                  sx={{
+                    maxWidth: 'var(--ui-max-width)',
+                    m: '0 auto',
+                    width: '100%',
+                    flex: '1',
+                    maxHeight: 40,
+                  }}
+                >
+                  <Logo />
+                </Stack>
+              </AppBar>
+              <Stack
+                flex={1}
+                spacing={{
+                  xs: 4.5,
+                  xl: 6,
+                }}
+                sx={{
+                  width: '100%',
+                  margin: '0 auto',
+                  alignItems: 'center',
+                  padding: {
+                    xs: 'var(--ui-content-padding-xs)',
+                    sm: 'var(--ui-content-padding-sm)',
+                    lg: 'var(--ui-content-padding-lg)',
+                  },
+                }}
+              >
+                <Stack
+                  flex={1}
+                  sx={{
+                    width: '100%',
+                    maxWidth: 'var(--ui-max-width)',
+                    zIndex: 2,
+                  }}
+                >
+                  {children}
+                </Stack>
+              </Stack>
+            </Box>
+          </I18nProvider>
         </ThemeRegistry>
       </body>
     </html>

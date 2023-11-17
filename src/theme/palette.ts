@@ -2,7 +2,7 @@ import { PaletteOptions } from '@mui/material/styles'
 
 import { PaletteColors } from '@/types'
 
-import { LIGHT_COLORS } from './variables'
+import { DARK_COLORS } from './variables'
 
 const variablesToPalette = (colors: PaletteColors): PaletteOptions => ({
   divider: colors.colBgDivider,
@@ -65,4 +65,4 @@ const variablesToPalette = (colors: PaletteColors): PaletteOptions => ({
   },
 })
 
-export const PALETTE = variablesToPalette(LIGHT_COLORS)
+export const PALETTE = variablesToPalette(DARK_COLORS)

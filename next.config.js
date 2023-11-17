@@ -1,5 +1,9 @@
+// const withNextCircularDeps = require('next-circular-dependency')
+
 /** @type {import('next').NextConfig} */
 module.exports = {
+  // withNextCircularDeps({ - uncomment to check for circular dependencies
+  // exclude: /node_modules/,
   reactStrictMode: true,
   swcMinify: true,
   transpilePackages: ['next-international', 'international-types'],
@@ -19,4 +23,4 @@ module.exports = {
     })
     return config
   },
-}
+} // )

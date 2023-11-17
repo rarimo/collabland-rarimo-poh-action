@@ -20,7 +20,7 @@ const appIcon = {
   sizes: '186x186',
 }
 
-export const manifest = new MiniAppManifest({
+const manifest = new MiniAppManifest({
   appId: PackageJson.name,
   name: 'Rarimo Proof of Humanity Verify Action',
   shortName: 'rarimo-poh-action',
