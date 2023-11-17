@@ -21,7 +21,10 @@ enum SignatureTypes {
   ED25519 = 'ed25519',
 }
 
-export const verifyCollablandRequest = (req: Request): VerifyRequestResult => {
+export const verifyCollablandRequest = async (
+  req: Request,
+  body: string,
+): Promise<VerifyRequestResult> => {
   if (CONFIG.skipVerification) return { verified: true }
 
   const ecdsaSignature = req.headers.get(ACTION_ECDSA_SIGNATURE_HEADER)
@@ -30,20 +33,12 @@ export const verifyCollablandRequest = (req: Request): VerifyRequestResult => {
     req.headers.get(ACTION_SIGNATURE_TIMESTAMP_HEADER)?.toString() ?? '0',
   )
 
-  const body = JSON.stringify(req.body)
   const signature = ecdsaSignature ?? ed25519Signature
 
   if (!signature) {
     return {
       verified: false,
       reason: `${ACTION_ECDSA_SIGNATURE_HEADER} or ${ACTION_ED25519_SIGNATURE_HEADER} header is required`,
-    }
-  }
-
-  if (!CONFIG.collablandActionPublicKey) {
-    return {
-      verified: false,
-      reason: 'Collabland action public key is not set.',
     }
   }
 
@@ -77,7 +72,7 @@ const verifyRequest = (
 }
 
 const verifyRequestWithEd25519 = (signature: string, msg: string): VerifyRequestResult => {
-  const publicKey = CONFIG.collablandActionPublicKey
+  const publicKey = CONFIG.collablandEd25519PublicKeyHex
   let verified = false
 
   try {
@@ -91,7 +86,7 @@ const verifyRequestWithEd25519 = (signature: string, msg: string): VerifyRequest
     log.debug('Signature verified', { verified })
   } catch (err: any) {
     verified = false
-    log.error(`Failed to verify Ed25518 signature: ${err.message}`, { error: err })
+    log.error(`Failed to verify Ed25518 signature: ${err.message}`, err)
   }
 
   if (!verified) {
@@ -102,7 +97,7 @@ const verifyRequestWithEd25519 = (signature: string, msg: string): VerifyRequest
 }
 
 const verifyRequestWithEcdsa = (signature: string, msg: string): VerifyRequestResult => {
-  const publicKey = CONFIG.collablandActionPublicKey
+  const publicKey = CONFIG.collablandEcdsaPublicKey
   let verified = false
 
   try {
@@ -112,7 +107,7 @@ const verifyRequestWithEcdsa = (signature: string, msg: string): VerifyRequestRe
     log.debug('Signature verified', { verified })
   } catch (err: any) {
     verified = false
-    log.error(`Failed to verify Ecdsa signature: ${err.message}`, { error: err })
+    log.error(`Failed to verify Ecdsa signature: ${err.message}`, err)
   }
 
   if (!verified) {

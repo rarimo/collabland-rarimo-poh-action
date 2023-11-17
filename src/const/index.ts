@@ -1,3 +1,3 @@
 export * from './actions'
 export * from './headers'
-export * from './manifest'
+export * from './metadata'

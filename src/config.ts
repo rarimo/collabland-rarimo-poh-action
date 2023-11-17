@@ -3,8 +3,6 @@ import * as yup from 'yup'
 
 import { DEFAULT_SETUP_ACTION_NAME, DEFAULT_VERIFY_ACTION_NAME } from '@/const'
 
-const env = (value?: string): string => value ?? ''
-
 type Config = {
   appUrl: string
   appName: string
@@ -12,12 +10,11 @@ type Config = {
   loglevel: string
   dbUrl: string
   skipVerification: boolean
-  collablandActionPublicKey: string
+  collablandEcdsaPublicKey: string
+  collablandEd25519PublicKeyHex: string
   setupActionName: string
   verifyActionName: string
 }
-
-let config: Config | undefined = undefined
 
 const validationSchema = yup.object({
   loglevel: yup.string().optional().default('debug'),
@@ -25,28 +22,32 @@ const validationSchema = yup.object({
   appName: yup.string().required(),
   appDescription: yup.string().required(),
   dbUrl: yup.string().required(),
-  skipVerification: yup.boolean().optional().default(false),
-  collablandActionPublicKey: yup.string().required(),
+  skipVerification: yup.boolean().required(),
+  collablandEcdsaPublicKey: yup.string().required(),
+  collablandEd25519PublicKeyHex: yup.string().required(),
   setupActionName: yup.string().optional().default(DEFAULT_SETUP_ACTION_NAME),
   verifyActionName: yup.string().optional().default(DEFAULT_VERIFY_ACTION_NAME),
 })
 
 const loadConfiguration = (): Config => {
+  const skipVerification = process.env.NEXT_PUBLIC_SKIP_VERIFICATION
+
   /* eslint-disable prettier/prettier */
-  config = {
+  const config = validationSchema.cast({
     // static
     appName: 'Rarimo Proof of Humanity Verify Page',
     appDescription: "Verify Discord server's members humanity using the Rarimo Proof of Humanity case and Collab.land bot.",
 
     // configurable
-    loglevel: env(process.env.NEXT_PUBLIC_LOG_LEVEL),
-    appUrl: env(process.env.NEXT_PUBLIC_APP_URL),
-    dbUrl: env(process.env.NEXT_PUBLIC_DB_URL),
-    skipVerification: Boolean(process.env.NEXT_PUBLIC_SKIP_VERIFICATION),
-    collablandActionPublicKey: env(process.env.NEXT_PUBLIC_COLLABLAND_PUBLIC_KEY),
-    setupActionName: env(process.env.NEXT_PUBLIC_SETUP_ACTION_NAME),
-    verifyActionName: env(process.env.NEXT_PUBLIC_VERIFY_ACTION_NAME),
-  }
+    loglevel: process.env.NEXT_PUBLIC_LOG_LEVEL || 'debug',
+    appUrl: process.env.NEXT_PUBLIC_APP_URL,
+    dbUrl: process.env.NEXT_PUBLIC_DB_URL,
+    skipVerification: skipVerification ? skipVerification === 'true' : false,
+    collablandEcdsaPublicKey: process.env.NEXT_PUBLIC_COLLABLAND_ECDSA_PUBLIC_KEY,
+    collablandEd25519PublicKeyHex: process.env.NEXT_PUBLIC_COLLABLAND_ED25519_PUBLIC_KEY_HEX,
+    setupActionName: process.env.NEXT_PUBLIC_SETUP_ACTION_NAME,
+    verifyActionName: process.env.NEXT_PUBLIC_VERIFY_ACTION_NAME,
+  })
   /* eslint-enable prettier/prettier */
 
   return validationSchema.validateSync(config, {
@@ -55,7 +56,7 @@ const loadConfiguration = (): Config => {
   })
 }
 
-export const CONFIG: Config = config ?? loadConfiguration()
+export const CONFIG: Config = loadConfiguration()
 
 export const METADATA: Metadata = {
   metadataBase: new URL(CONFIG.appUrl),

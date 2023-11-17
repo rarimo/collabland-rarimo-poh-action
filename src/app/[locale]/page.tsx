@@ -12,7 +12,7 @@ export const metadata: Metadata = METADATA
 const getVerifiedRole = async (guildId: string): Promise<VerifiedRole | null> => {
   const [err, role] = await go(() => db.verifiedRolesQ.get(guildId))
   if (err) {
-    logger.error('Failed to get verification role', { error: err })
+    logger.error('Failed to get verification role', err)
     return null
   }
 

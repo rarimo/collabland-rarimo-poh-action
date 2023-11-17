@@ -40,7 +40,8 @@ allow members to verify their humanity using the [Rarimo Proof of Humanity] case
 - In order to verify the webhook requests coming from the Collab.Land bot, please set
   the `NEXT_PUBLIC_SKIP_VERIFICATION` variable in your `.env` file to `false`.
 - Please, fetch the public key from the [**[Collab.Land Config]**], and replace
-  your `NEXT_PUBLIC_COLLABLAND_PUBLIC_KEY` variable in the `.env` file.
+  your `NEXT_PUBLIC_COLLABLAND_ECDSA_PUBLIC_KEY`, `NEXT_PUBLIC_COLLABLAND_ED25519_PUBLIC_KEY_HEX`
+  variables in the `.env` file.
 
 Check the `.env` file [example config file] for more details.
 

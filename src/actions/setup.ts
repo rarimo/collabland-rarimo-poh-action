@@ -1,6 +1,7 @@
 import {
   APIChatInputApplicationCommandInteraction,
   APIInteractionResponse,
+  DiscordActionRequest,
   getCommandOptionValue,
   InteractionResponseType,
   MessageFlags,
@@ -11,8 +12,16 @@ import { db } from '@/db'
 import { go } from '@/helpers'
 import { badRequest, internalError } from '@/http'
 
-export const handleSetupAction = async (interaction: APIChatInputApplicationCommandInteraction) => {
-  const roleId = getCommandOptionValue(interaction, SETUP_ACTION_OPTION_NAME) ?? ''
+export const handleSetupAction = async (interaction: DiscordActionRequest) => {
+  const isAdmin = interaction?.actionContext?.isCommunityAdmin ?? false
+
+  if (!isAdmin) return badRequest('Only community admins can setup this action')
+
+  const roleId =
+    getCommandOptionValue(
+      interaction as APIChatInputApplicationCommandInteraction,
+      SETUP_ACTION_OPTION_NAME,
+    ) ?? ''
   const guildId = interaction.guild_id ?? ''
 
   if (!roleId) return badRequest('Missing verified role ID')
@@ -26,7 +35,13 @@ export const handleSetupAction = async (interaction: APIChatInputApplicationComm
     type: InteractionResponseType.ChannelMessageWithSource,
     data: {
       flags: MessageFlags.Ephemeral,
-      content: 'Rarimo Proof of Humanity Verify Action has been setup successfully!',
+      embeds: [
+        {
+          title: 'Rarimo Proof of Humanity',
+          description: 'Verify Action has been setup successfully!',
+          color: 1752220,
+        },
+      ],
     },
   }
 
