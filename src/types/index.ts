@@ -1,4 +1,6 @@
 export * from './base'
 export * from './db'
+export * from './local-storage'
 export * from './theme'
 export * from './verified-role'
+export * from './web3'

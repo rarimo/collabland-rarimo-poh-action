@@ -1,3 +1,4 @@
+NEXT_PUBLIC_ENVIRONMENT="devnet"
 NEXT_PUBLIC_APP_URL="http://localhost:8000"
 NEXT_PUBLIC_DB_URL="postgresql://rarimo-poh:rarimo-poh@localhost:15432/rarimo-poh-db?sslmode=disable"
 

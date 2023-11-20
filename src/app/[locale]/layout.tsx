@@ -7,6 +7,7 @@ import localFont from 'next/font/local'
 import { ReactNode } from 'react'
 
 import Logo from '@/components/Logo'
+import StatusMessage from '@/components/StatusMessage'
 import { I18nProvider, ThemeRegistry } from '@/providers'
 
 const inter = localFont({
@@ -153,6 +154,7 @@ export default function RootLayout({
                 </Stack>
               </Stack>
             </Box>
+            <StatusMessage />
           </I18nProvider>
         </ThemeRegistry>
       </body>

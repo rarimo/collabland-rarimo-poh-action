@@ -9,7 +9,7 @@ import {
 
 import { SETUP_ACTION_OPTION_NAME } from '@/const'
 import { db } from '@/db'
-import { go } from '@/helpers'
+import { go } from '@/helpers/go'
 import { badRequest, internalError } from '@/http'
 
 export const handleSetupAction = async (interaction: DiscordActionRequest) => {

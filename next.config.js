@@ -12,15 +12,27 @@ module.exports = {
       transform: '@mui/icons-material/{{member}}',
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+        port: '',
+        pathname: '/rarimo/js-sdk/2.0.0-rc.30/assets/logos/**',
+      },
+    ],
+  },
   // https://github.com/vercel/next.js/issues/52091
   experimental: {
     serverComponentsExternalPackages: ['knex', '@collabland/discord', '@collabland/models'],
+    esmExternals: 'loose',
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.externals.push({
       'utf-8-validate': 'commonjs utf-8-validate',
       bufferutil: 'commonjs bufferutil',
     })
+    config.externals.push('pino-pretty', 'lokijs', 'encoding')
     return config
   },
 } // )

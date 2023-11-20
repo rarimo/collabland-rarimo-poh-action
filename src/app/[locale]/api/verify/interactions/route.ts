@@ -1,6 +1,6 @@
 import { handleSetupAction, handleVerifyAction } from '@/actions'
-import { CONFIG } from '@/config'
-import { verifyCollablandRequest } from '@/helpers'
+import { config } from '@/config'
+import { verifyCollablandRequest } from '@/helpers/collabland-verify'
 import { badRequest, unathorized } from '@/http'
 
 export const POST = async (request: Request) => {
@@ -8,8 +8,8 @@ export const POST = async (request: Request) => {
   const verifyResult = await verifyCollablandRequest(request, JSON.stringify(interaction))
 
   if (!verifyResult.verified) return unathorized(verifyResult.reason)
-  if (interaction?.data?.name === CONFIG.setupActionName) return handleSetupAction(interaction)
-  if (interaction?.data?.name === CONFIG.verifyActionName) return handleVerifyAction(interaction)
+  if (interaction?.data?.name === config.setupActionName) return handleSetupAction(interaction)
+  if (interaction?.data?.name === config.verifyActionName) return handleVerifyAction(interaction)
 
   return badRequest('Unsupported interaction type')
 }
