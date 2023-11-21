@@ -8,6 +8,7 @@ export const BUS_EVENT_TYPES = {
   success: 'success',
   error: 'error',
   info: 'info',
+  verified: 'verified',
 }
 
 export type EventBusEventName = (typeof BUS_EVENT_TYPES)[keyof typeof BUS_EVENT_TYPES]

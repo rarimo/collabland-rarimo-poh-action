@@ -37,13 +37,26 @@ allow members to verify their humanity using the [Rarimo Proof of Humanity] case
 
 ## Configuration
 
-- In order to verify the webhook requests coming from the Collab.Land bot, please set
-  the `NEXT_PUBLIC_SKIP_VERIFICATION` variable in your `.env` file to `false`.
+- Set `NEXT_PUBLIC_APP_URL` to the URL of your application in the `.env` file. This URL will be used
+  to redirect users after they verify their humanity. By default, it should be `http://localhost:8000`
+  if you didn't change the port (check [Starting the server](#starting-the-server))
+- Set `NEXT_PUBLIC_ENVIRONMENT` to `devnet` or `mainnet` in the `.env` file to specify which Rarimo
+  Proof of Humanity network you want to use. For the `devnet` Goerli network is used, for the
+  `mainnet` Polygon network is used.
+- Set `DB_URL` to the URL of your Postgres database in the `.env` file. By default, it should be
+  `postgresql://rarimo-poh:rarimo-poh@localhost:15432/rarimo-poh-db?sslmode=disable` (by default
+  [docker-compose.yml](./docker-compose.yml)) expose `15432` port for Postgres.
+- (Optional) In order to verify the webhook requests coming from the Collab.Land bot, please set
+  the `SKIP_VERIFICATION` variable in your `.env` file to `false`.
 - Please, fetch the public key from the [**[Collab.Land Config]**], and replace
-  your `NEXT_PUBLIC_COLLABLAND_ECDSA_PUBLIC_KEY`, `NEXT_PUBLIC_COLLABLAND_ED25519_PUBLIC_KEY_HEX`
+  your `COLLABLAND_ECDSA_PUBLIC_KEY`, `COLLABLAND_ED25519_PUBLIC_KEY_HEX`
   variables in the `.env` file.
+- [Register OAuth2 Client Application] and set the `NEXT_PUBLIC_COLLABLAND_CLIENT_ID`,
+  `COLLABLAND_CLIENT_SECRET`, `COLLABLAND_CLIENT_API_KEY` variables in the `.env` file.
+- (Optional) Set `LOG_LEVEL` to `debug` or `info` in the `.env` file to specify the log level. By default, it
+  will be `debug`.
 
-Check the `.env` file [example config file] for more details.
+Check the full `.env` file [example](./env-example) config for more details.
 
 ### Slash command names
 
@@ -53,8 +66,8 @@ Slash command names could be changed in `.env` file, if needed, by the default, 
 ```bash
 # file: .env
 
-NEXT_PUBLIC_SETUP_COMMAND_NAME="my-setup-command"
-NEXT_PUBLIC_VERIFY_COMMAND_NAME="my-verify-command
+SETUP_ACTION_NAME="my-setup-command"
+VERIFY_ACTION_NAME="my-verify-command
 ```
 
 ## Setup
@@ -111,7 +124,7 @@ Before the build replace database url in the `.env` file with the following:
 ```bash
 # file: .env
 
-NEXT_PUBLIC_DB_URL="postgresql://rarimo-poh:rarimo-poh@rarimo-poh-db:5432/rarimo-poh-db?sslmode=disable"
+DB_URL="postgresql://rarimo-poh:rarimo-poh@rarimo-poh-db:5432/rarimo-poh-db?sslmode=disable"
 ```
 
 To build the Docker image, run the following command:
@@ -222,8 +235,8 @@ This project is under the MIT License — see the [LICENSE](./LICENSE) file for 
 
 ["build a custom action"]: https://dev.collab.land/docs/upstream-integrations/collab-actions/getting-started-with-collab-actions
 
-[example config file]: ./env-example
-
 [package.json]: ./package.json
 
 [Test the Actions in a Discord server]: https://dev.collab.land/docs/upstream-integrations/collab-actions/getting-started-with-collab-actions#test-the-actions-in-a-discord-server
+
+[OAuth2 Client Application]: https://dev.collab.land/docs/downstream-integrations/api/authentication#register-your-oauth2-client-application

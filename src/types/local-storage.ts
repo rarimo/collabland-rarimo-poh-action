@@ -5,3 +5,7 @@ export type Web3StorageState = {
   address?: string
   verified?: boolean
 }
+
+export type DiscordStorageState = {
+  [key: string]: string | undefined
+}

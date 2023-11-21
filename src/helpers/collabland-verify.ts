@@ -1,7 +1,7 @@
 import { utils } from 'ethers'
 import nacl from 'tweetnacl'
 
-import { config } from '@/config'
+import { serverConfig } from '@/config/server'
 import {
   ACTION_ECDSA_SIGNATURE_HEADER,
   ACTION_ED25519_SIGNATURE_HEADER,
@@ -25,7 +25,7 @@ export const verifyCollablandRequest = async (
   req: Request,
   body: string,
 ): Promise<VerifyRequestResult> => {
-  if (config.skipVerification) return { verified: true }
+  if (serverConfig.skipVerification) return { verified: true }
 
   const ecdsaSignature = req.headers.get(ACTION_ECDSA_SIGNATURE_HEADER)
   const ed25519Signature = req.headers.get(ACTION_ED25519_SIGNATURE_HEADER)
@@ -72,7 +72,7 @@ const verifyRequest = (
 }
 
 const verifyRequestWithEd25519 = (signature: string, msg: string): VerifyRequestResult => {
-  const publicKey = config.collablandEd25519PublicKeyHex
+  const publicKey = serverConfig.collablandEd25519PublicKeyHex
   let verified = false
 
   try {
@@ -97,7 +97,7 @@ const verifyRequestWithEd25519 = (signature: string, msg: string): VerifyRequest
 }
 
 const verifyRequestWithEcdsa = (signature: string, msg: string): VerifyRequestResult => {
-  const publicKey = config.collablandEcdsaPublicKey
+  const publicKey = serverConfig.collablandEcdsaPublicKey
   let verified = false
 
   try {

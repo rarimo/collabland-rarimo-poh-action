@@ -14,9 +14,10 @@ import { useLocalStorage } from 'react-use'
 
 import packageJson from '@/../package.json'
 import { api } from '@/api'
-import { config } from '@/config'
+import { clientConfig } from '@/config/client'
 import { SALT_BYTES, SUPPORTED_PROVIDERS_MAP, WEB3_STORAGE_KEY } from '@/const'
 import { ErrorHandler } from '@/helpers/error-handler'
+import { Bus } from '@/helpers/event-bus'
 import { go } from '@/helpers/go'
 import { hashMessage } from '@/helpers/hash-msg'
 import { useDialog, useProvider } from '@/hooks'
@@ -89,7 +90,7 @@ export default function ConnectWalletButton() {
       setIsConnecting(true)
 
       Provider.setChainsDetails(
-        Object.entries(config.supportedChains).reduce(
+        Object.entries(clientConfig.supportedChains).reduce(
           (acc, [, chainDetails]) => ({
             ...acc,
             [chainDetails.id]: chainDetails,
@@ -97,15 +98,6 @@ export default function ConnectWalletButton() {
           {},
         ),
       )
-
-      // providerDetector.addProvider({
-      //   name: PROVIDERS.WalletConnect,
-      //   instance: {
-      //     projectId: 'abcdefghijklmnopqrstuvwxyz',
-      //     relayUrl: 'wss://relay.walletconnect.com',
-      //     logger: 'info',
-      //   } as RawProvider,
-      // })
 
       let initializedProvider: Provider = {} as Provider
 
@@ -127,8 +119,8 @@ export default function ConnectWalletButton() {
 
         if (!initializedProvider.isConnected) await initializedProvider?.connect?.()
 
-        if (initializedProvider.chainDetails?.id !== config.targetChainId) {
-          await initializedProvider?.switchChain?.(config.targetChainId)
+        if (initializedProvider.chainDetails?.id !== clientConfig.targetChainId) {
+          await initializedProvider?.switchChain?.(clientConfig.targetChainId)
         }
       })
 
@@ -169,12 +161,12 @@ export default function ConnectWalletButton() {
           domain: window.location.hostname,
           address: provider.address!,
           version: packageJson.version,
-          chainId: config.targetChainId,
+          chainId: clientConfig.targetChainId,
         })
 
         const signature = await provider.signMessage(message)
 
-        const { data } = await api.post<{ verified: boolean }>('/api/verify-signature', {
+        const { data } = await api.post<{ verified: boolean }>('/verify-signature', {
           body: {
             message,
             signature,
@@ -190,6 +182,8 @@ export default function ConnectWalletButton() {
           address: provider.address,
           providerType: storageState?.providerType,
         })
+
+        Bus.emit(Bus.eventList.verified, data?.verified ?? false)
       })
 
       await processError(err)

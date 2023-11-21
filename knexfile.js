@@ -5,5 +5,5 @@ dotenv.config()
 
 module.exports = {
   client: 'pg',
-  connection: process.env.NEXT_PUBLIC_DB_URL,
+  connection: process.env.DB_URL,
 }

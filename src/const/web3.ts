@@ -9,6 +9,7 @@ import {
 
 import { SUPPORTED_PROVIDERS } from '@/types'
 
+// TODO: add walletconnect
 export const SUPPORTED_PROVIDERS_MAP: {
   [key in SUPPORTED_PROVIDERS]?: ProviderProxyConstructor
 } = {

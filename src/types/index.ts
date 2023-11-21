@@ -1,4 +1,6 @@
 export * from './base'
+export * from './collabland'
+export * from './config'
 export * from './db'
 export * from './local-storage'
 export * from './theme'

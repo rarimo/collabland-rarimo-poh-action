@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack'
 import localFont from 'next/font/local'
 import { ReactNode } from 'react'
 
-import Logo from '@/components/Logo'
+import Logo from '@/components/Icons/Logo'
 import StatusMessage from '@/components/StatusMessage'
 import { I18nProvider, ThemeRegistry } from '@/providers'
 

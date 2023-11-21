@@ -1,7 +1,10 @@
 import { Fetcher } from '@distributedlab/fetcher'
 
-import { config } from '@/config'
+import { clientConfig } from '@/config/client'
+
+const baseUrl = new URL(clientConfig.appUrl)
+baseUrl.pathname = '/api'
 
 export const api = new Fetcher({
-  baseUrl: config.appUrl,
+  baseUrl: baseUrl.toString(),
 })

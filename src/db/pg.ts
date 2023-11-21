@@ -1,9 +1,9 @@
 import knex from 'knex'
 
-import { config } from '@/config'
+import { serverConfig } from '@/config/server'
 
 export const pg = knex({
   client: 'pg',
-  connection: config.dbUrl,
+  connection: serverConfig.dbUrl,
   useNullAsDefault: true,
 })

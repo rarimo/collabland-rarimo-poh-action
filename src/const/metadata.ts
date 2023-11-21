@@ -8,7 +8,7 @@ import { MiniAppManifest } from '@collabland/models'
 import { join } from 'path'
 
 import PackageJson from '@/../package.json'
-import { config } from '@/config'
+import { serverConfig } from '@/config/server'
 
 import { SETUP_ACTION_OPTION_NAME } from './actions'
 
@@ -16,7 +16,7 @@ const keywords = ['verification', 'rarimo', 'proof-of-humanity']
 
 const appIcon = {
   label: 'Rarimo Proof of Humanity Action',
-  src: join(config.appUrl, '/apple-icon.png'),
+  src: join(serverConfig.appUrl, '/apple-icon.png'),
   sizes: '186x186',
 }
 
@@ -26,11 +26,11 @@ const manifest = new MiniAppManifest({
   shortName: 'rarimo-poh-action',
   appType: 'action',
   developer: PackageJson.author,
-  description: config.appDescription,
-  shortDescription: config.appDescription,
+  description: serverConfig.appDescription,
+  shortDescription: serverConfig.appDescription,
   platforms: ['discord'],
   version: { name: PackageJson.version },
-  website: config.appUrl,
+  website: serverConfig.appUrl,
   keywords,
   tags: keywords,
   thumbnails: [appIcon],
@@ -50,12 +50,12 @@ export const METADATA: DiscordActionMetadata = {
     {
       // Handle setup slash command
       type: InteractionType.ApplicationCommand,
-      names: [config.setupActionName],
+      names: [serverConfig.setupActionName],
     },
     {
       // Handle verify <role> slash command
       type: InteractionType.ApplicationCommand,
-      names: [config.verifyActionName],
+      names: [serverConfig.verifyActionName],
     },
   ],
   /**
@@ -67,10 +67,10 @@ export const METADATA: DiscordActionMetadata = {
     {
       metadata: {
         name: 'Setup Rarimo Proof of Humanity Verify Action',
-        shortName: config.setupActionName,
+        shortName: serverConfig.setupActionName,
         supportedEnvs: ['production', 'development'],
       },
-      name: config.setupActionName,
+      name: serverConfig.setupActionName,
       type: ApplicationCommandType.ChatInput,
       description: 'Allows you to setup Rarimo Proof of Humanity Verify Action',
       options: [
@@ -86,10 +86,10 @@ export const METADATA: DiscordActionMetadata = {
     {
       metadata: {
         name: 'Verify your humanity with Rarimo Proof of Humanity use case',
-        shortName: config.verifyActionName,
+        shortName: serverConfig.verifyActionName,
         supportedEnvs: ['production', 'development'],
       },
-      name: config.verifyActionName,
+      name: serverConfig.verifyActionName,
       type: ApplicationCommandType.ChatInput,
       description: 'Allows you to verify your humanity with Rarimo Proof of Humanity use case',
       options: [],

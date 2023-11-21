@@ -3,13 +3,13 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { Metadata } from 'next'
 
-import ConnectDiscordButton from '@/components/ConnectDiscordButton'
 import ConnectWalletButton from '@/components/ConnectWalletButton'
-import DiscordLogo from '@/components/DiscordLogo'
-import RaLogo from '@/components/RaLogo'
+import DiscordLogo from '@/components/Icons/DiscordLogo'
+import RaLogo from '@/components/Icons/RaLogo'
+import LoginDiscordButton from '@/components/LoginDiscordButton'
 import StepCard from '@/components/StepCard'
 import VerifyButton from '@/components/VerifyButton'
-import { METADATA } from '@/config'
+import { serverConfig } from '@/config/server'
 import { db } from '@/db'
 import { go } from '@/helpers/go'
 import { getI18n } from '@/locales/server'
@@ -43,7 +43,30 @@ const DESCRIPTION_PROPS = {
   textTransform: 'uppercase',
 } as const
 
-export const metadata: Metadata = METADATA
+export const metadata: Metadata = {
+  metadataBase: new URL(serverConfig.appUrl),
+  description: serverConfig.appDescription,
+  applicationName: serverConfig.appName,
+  title: serverConfig.appName,
+  themeColor: '#ffffff',
+  colorScheme: 'light',
+  // eslint-disable-next-line prettier/prettier
+  viewport: 'width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0',
+  creator: 'Zero Block Global Foundation',
+  openGraph: {
+    title: serverConfig.appName,
+    description: serverConfig.appDescription,
+    locale: 'en_GB',
+    type: 'website',
+    images: '/thumbnail.jpg',
+  },
+  twitter: {
+    description: serverConfig.appDescription,
+    title: serverConfig.appName,
+    card: 'summary_large_image',
+    images: '/thumbnail.jpg',
+  },
+}
 
 const getVerifiedRole = async (guildId: string): Promise<VerifiedRole | null> => {
   const [err, role] = await go(() => db.verifiedRolesQ.get(guildId))
@@ -60,9 +83,15 @@ const getVerifiedRole = async (guildId: string): Promise<VerifiedRole | null> =>
   return { guildId: role.guild_id, roleId: role.role_id }
 }
 
-export default async function Index({ searchParams }: { searchParams: { guild_id?: string } }) {
+export default async function Index({
+  searchParams,
+}: {
+  searchParams: { guild_id?: string; state?: string; code?: string }
+}) {
   const i18n = await getI18n()
-  const role = await getVerifiedRole(searchParams.guild_id ?? '')
+  const guildId = searchParams?.guild_id ?? searchParams?.state ?? ''
+  const authCode = searchParams?.code ?? ''
+  const role = await getVerifiedRole(guildId)
 
   const steps = [
     {
@@ -79,7 +108,7 @@ export default async function Index({ searchParams }: { searchParams: { guild_id
       icon: <DiscordLogo {...ICON_SX} />,
       bodyTitle: i18n('index.connect-discord-lbl'),
       bodyDescription: i18n('index.connect-discord-desc'),
-      action: <ConnectDiscordButton />,
+      action: <LoginDiscordButton guildId={guildId} code={authCode} />,
     },
     {
       title: i18n('index.step-lbl', { step: 3 }),

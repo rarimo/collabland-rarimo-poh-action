@@ -8,7 +8,7 @@ import {
 import { DiscordActionRequest } from '@collabland/discord'
 import { join } from 'path'
 
-import { config } from '@/config'
+import { serverConfig } from '@/config/server'
 import { db } from '@/db'
 import { go } from '@/helpers/go'
 import { internalError } from '@/http'
@@ -29,13 +29,13 @@ export const handleVerifyAction = async (interaction: DiscordActionRequest) => {
     })
   }
 
-  const redirectUrl = new URL(config.appUrl)
+  const redirectUrl = new URL(serverConfig.appUrl)
   redirectUrl.searchParams.set('guild_id', guildId)
 
   const imageUrl =
     process.env.NODE_ENV === 'development'
       ? 'https://rarimo.com/img/branding/og-img.jpg'
-      : join(config.appUrl, '/thumbnail.jpg')
+      : join(serverConfig.appUrl, '/thumbnail.jpg')
 
   const response: APIInteractionResponse = {
     type: InteractionResponseType.ChannelMessageWithSource,

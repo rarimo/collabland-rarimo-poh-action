@@ -27,7 +27,7 @@ export default {
     "step-lbl": "Step: {step}",
     "connect-wallet-lbl": "Connect Wallet",
     "connect-wallet-desc": "Sign in and sign a message to prove you own the wallet address.",
-    "connect-discord-lbl": "Connect Discord",
+    "connect-discord-lbl": "Login Discord",
     "connect-discord-desc": "Login with your Discord account to verify your identity.",
     "verify-poh-lbl": "Verify Proof of Humanity",
     "verify-poh-desc": "Use this dApp to verify that you are a real person.",
@@ -38,6 +38,11 @@ export default {
     "btn-connected-lbl": "Connected",
     "connect-btn-lbl": "Connect",
     "dialog-heading": "Select Wallet And Connect",
+  },
+  "login-discord-btn": {
+    "btn-lbl": "Login Discord",
+    "btn-processing-lbl": "Processing",
+    "btn-logged-in-lbl": "Logged In",
   },
   "wallet-form": {
     "helper-text": "Select a wallet and connect to continue.",
