@@ -116,7 +116,7 @@ export default async function Index({
       icon: <RaLogo {...ICON_SX} />,
       bodyTitle: i18n('index.verify-poh-lbl'),
       bodyDescription: i18n('index.verify-poh-desc'),
-      action: <VerifyButton />,
+      action: <VerifyButton guildId={guildId} />,
     },
   ]
 

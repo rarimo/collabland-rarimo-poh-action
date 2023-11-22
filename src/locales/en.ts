@@ -48,4 +48,16 @@ export default {
     "helper-text": "Select a wallet and connect to continue.",
     "provider-type-lbl": "Provider Type",
   },
+  "verify-btn": {
+    "btn-lbl": "Verify Humanity",
+    "btn-loading-lbl": "Checking",
+  },
+  "verify-poh": {
+    "dialog-heading": "Verify Humanity",
+    "check-btn-lbl": "Check",
+    "verify-btn-lbl": "Verify",
+    "tip-text": "There you could check your Proof of Humanity, click the \"Check\" button to continue.",
+    "tip-not-verified-text": "You are not verified yet, click the \"Verify\" button to pass the Rarimo Proof of Humanity verification.",
+    "tip-verified-text": "We have successfully verified your humanity! Enjoy your new Discord role!",
+  },
 } as const

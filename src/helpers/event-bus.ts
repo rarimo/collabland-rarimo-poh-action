@@ -9,6 +9,7 @@ export const BUS_EVENT_TYPES = {
   error: 'error',
   info: 'info',
   verified: 'verified',
+  discordLoggedIn: 'discord-logged-in',
 }
 
 export type EventBusEventName = (typeof BUS_EVENT_TYPES)[keyof typeof BUS_EVENT_TYPES]

@@ -1,25 +1,19 @@
+import { FetcherResponse } from '@distributedlab/fetcher'
+
 import { collablandApi } from '@/collabland-api'
 import { serverConfig } from '@/config/server'
 import { go } from '@/helpers/go'
+import { badRequest, internalError } from '@/http'
 import { logger } from '@/log'
 import { CollandLandAccountResponse, CollandLandTokenResponse } from '@/types'
 
 export const GET = async (request: Request) => {
+  let err: Error | null
+  // TODO: add authorization
   const url = new URL(request.url)
   const code = url.searchParams.get('code')
 
-  if (!code) {
-    return Response.json(
-      {
-        title: 'Bad Request',
-        description: 'Missing required parameters',
-        params: {
-          code,
-        },
-      },
-      { status: 400 },
-    )
-  }
+  if (!code) return badRequest({ code })
 
   logger.debug('Getting user via collabland api', { code })
 
@@ -31,7 +25,8 @@ export const GET = async (request: Request) => {
     redirect_uri: serverConfig.appUrl,
   })
 
-  const [tokenErr, token] = await go(() =>
+  let token: FetcherResponse<CollandLandTokenResponse> | null
+  ;[err, token] = await go(() =>
     collablandApi.post<CollandLandTokenResponse>('/oauth2/token', {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -40,24 +35,12 @@ export const GET = async (request: Request) => {
     }),
   )
 
-  if (tokenErr) {
-    logger.error('Error getting token via collabland api', tokenErr)
-
-    return Response.json(
-      {
-        title: 'Internal Server Error',
-        description: 'Error getting user token',
-        params: {
-          code,
-        },
-      },
-      { status: 500 },
-    )
-  }
+  if (err) return internalError('Failed to get access token', err)
 
   const { access_token: accessToken, token_type: tokenType } = token?.data || {}
 
-  const [accountErr, account] = await go(() =>
+  let account: FetcherResponse<CollandLandAccountResponse> | null
+  ;[err, account] = await go(() =>
     collablandApi.get<CollandLandAccountResponse>('/account/me', {
       headers: {
         Authorization: `${tokenType} ${accessToken}`,
@@ -65,20 +48,7 @@ export const GET = async (request: Request) => {
     }),
   )
 
-  if (accountErr) {
-    logger.error('Error getting account via collabland api', tokenErr)
-
-    return Response.json(
-      {
-        title: 'Internal Server Error',
-        description: 'Error getting user account',
-        params: {
-          code,
-        },
-      },
-      { status: 500 },
-    )
-  }
+  if (err) return internalError('Failed to get account', err)
 
   return Response.json({ id: account?.data?.id })
 }

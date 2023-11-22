@@ -43,6 +43,12 @@ allow members to verify their humanity using the [Rarimo Proof of Humanity] case
 - Set `NEXT_PUBLIC_ENVIRONMENT` to `devnet` or `mainnet` in the `.env` file to specify which Rarimo
   Proof of Humanity network you want to use. For the `devnet` Goerli network is used, for the
   `mainnet` Polygon network is used.
+- Set `NEXT_PUBLIC_POH_APP_URL` to the according url of the Rarimo Proof of Humanity application in
+  the `.env` file. By default, it should be `https://robotornot.mainnet-beta.rarimo.com` for the
+  `devnet` and `https://robotornot.rarimo.com` for the `mainnet`.
+- Set `NEXT_PUBLIC_COLLABLAND_API_URL` to the according url of the Collab.Land API in the `.env`
+  file. By default, it should be `https://api-qa.collab.land` for the `devnet` and
+  `https://api.collab.land` for the `mainnet`.
 - Set `DB_URL` to the URL of your Postgres database in the `.env` file. By default, it should be
   `postgresql://rarimo-poh:rarimo-poh@localhost:15432/rarimo-poh-db?sslmode=disable` (by default
   [docker-compose.yml](./docker-compose.yml)) expose `15432` port for Postgres.
@@ -52,7 +58,7 @@ allow members to verify their humanity using the [Rarimo Proof of Humanity] case
   your `COLLABLAND_ECDSA_PUBLIC_KEY`, `COLLABLAND_ED25519_PUBLIC_KEY_HEX`
   variables in the `.env` file.
 - [Register OAuth2 Client Application] and set the `NEXT_PUBLIC_COLLABLAND_CLIENT_ID`,
-  `COLLABLAND_CLIENT_SECRET`, `COLLABLAND_CLIENT_API_KEY` variables in the `.env` file.
+  `COLLABLAND_CLIENT_SECRET`, `COLLABLAND_API_KEY` variables in the `.env` file.
 - (Optional) Set `LOG_LEVEL` to `debug` or `info` in the `.env` file to specify the log level. By default, it
   will be `debug`.
 

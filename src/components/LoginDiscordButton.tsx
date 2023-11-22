@@ -29,13 +29,6 @@ export default function LoginDiscordButton({ guildId, code }: { guildId: string;
     },
   )
 
-  const isWeb3Verified = useMemo(() => Boolean(web3StorageState?.verified), [web3StorageState])
-
-  const isAccountIdExist = useMemo(
-    () => Boolean(discordStorageState?.[guildId]),
-    [guildId, discordStorageState],
-  )
-
   const loginUrl = useMemo(() => {
     const query = {
       client_id: clientConfig.collablandClientId,
@@ -45,7 +38,8 @@ export default function LoginDiscordButton({ guildId, code }: { guildId: string;
       state: guildId,
     }
 
-    const url = new URL('https://api.collab.land/oauth2/authorize')
+    const url = new URL(clientConfig.collablandApiUrl)
+    url.pathname = '/oauth2/authorize'
 
     Object.entries(query).forEach(([key, value]) => {
       url.searchParams.append(key, value)
@@ -61,15 +55,15 @@ export default function LoginDiscordButton({ guildId, code }: { guildId: string;
   }, [isLoading, isLogged, t])
 
   useEffect(() => {
-    setIsDisabled(!isWeb3Verified)
-  }, [isWeb3Verified, setIsDisabled])
+    setIsDisabled(!web3StorageState?.verified)
+  }, [web3StorageState, setIsDisabled])
 
   useEffect(() => {
-    setIsLogged(isAccountIdExist)
-  }, [isAccountIdExist, setIsLogged])
+    setIsLogged(Boolean(discordStorageState?.[guildId]))
+  }, [discordStorageState, guildId, setIsLogged])
 
   useEffect(() => {
-    Bus.on<boolean>(Bus.eventList.verified, verified => {
+    Bus.on<{ verified: boolean }>(Bus.eventList.verified, ({ verified }) => {
       setIsDisabled(!verified)
     })
 
@@ -80,7 +74,7 @@ export default function LoginDiscordButton({ guildId, code }: { guildId: string;
       setIsLoading(true)
 
       const [err, resp] = await go(() =>
-        api.get<{ id: string }>('/user', {
+        api.get<{ id: string }>('/user/discord', {
           query: { code },
         }),
       )
@@ -94,6 +88,7 @@ export default function LoginDiscordButton({ guildId, code }: { guildId: string;
 
       setDiscordStorageState({ [guildId]: id })
       setIsLoading(false)
+      Bus.emit(Bus.eventList.discordLoggedIn, Boolean(id))
     }
 
     if (!discordStorageState?.[guildId] && code && !isLoading) {

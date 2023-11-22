@@ -6,18 +6,17 @@ import {
   MessageFlags,
 } from '@collabland/discord'
 import { DiscordActionRequest } from '@collabland/discord'
-import { join } from 'path'
 
 import { serverConfig } from '@/config/server'
 import { db } from '@/db'
 import { go } from '@/helpers/go'
-import { internalError } from '@/http'
+import { internalErrorAction } from '@/http'
 
 export const handleVerifyAction = async (interaction: DiscordActionRequest) => {
   const guildId = interaction.guild_id ?? ''
 
   const [err, verifiedRole] = await go(() => db.verifiedRolesQ.get(guildId))
-  if (err) return internalError('Failed to get verified role')
+  if (err) return internalErrorAction('Failed to get verified role')
 
   if (!verifiedRole) {
     return Response.json({
@@ -32,11 +31,6 @@ export const handleVerifyAction = async (interaction: DiscordActionRequest) => {
   const redirectUrl = new URL(serverConfig.appUrl)
   redirectUrl.searchParams.set('guild_id', guildId)
 
-  const imageUrl =
-    process.env.NODE_ENV === 'development'
-      ? 'https://rarimo.com/img/branding/og-img.jpg'
-      : join(serverConfig.appUrl, '/thumbnail.jpg')
-
   const response: APIInteractionResponse = {
     type: InteractionResponseType.ChannelMessageWithSource,
     data: {
@@ -49,7 +43,7 @@ export const handleVerifyAction = async (interaction: DiscordActionRequest) => {
             "Upon clicking the button, you'll be redirected to the verification page. Your role will automatically be assigned upon a successful Proof of Humanity verification.",
           // https://gist.github.com/thomasbnt/b6f455e2c7d743b796917fa3c205f812
           color: 3447003,
-          image: { url: imageUrl, height: 256, width: 512 },
+          image: { url: 'https://rarimo.com/img/branding/og-img.jpg', height: 256, width: 512 },
         },
       ],
       components: [

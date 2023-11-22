@@ -5,4 +5,6 @@ export const sharedValidationSchema = {
   appName: yup.string().required(),
   appDescription: yup.string().required(),
   collablandClientId: yup.string().required(),
+  collablandApiUrl: yup.string().required(),
+  env: yup.string().oneOf(['devnet', 'mainnet']).required(),
 }

@@ -41,14 +41,8 @@ export default function ConnectWalletButton() {
 
   const { closeDialog, openDialog, setIsDisabled, isDisabled, isDialogOpened } = useDialog()
 
-  const [storageState, setStorageState, removeStorageState] = useLocalStorage<Web3StorageState>(
-    WEB3_STORAGE_KEY,
-    {
-      providerType: undefined,
-      address: undefined,
-      verified: false,
-    },
-  )
+  const [storageState, setStorageState, removeStorageState] =
+    useLocalStorage<Web3StorageState>(WEB3_STORAGE_KEY)
 
   const disconnect = useCallback(async () => {
     await go(provider?.disconnect)
@@ -183,7 +177,10 @@ export default function ConnectWalletButton() {
           providerType: storageState?.providerType,
         })
 
-        Bus.emit(Bus.eventList.verified, data?.verified ?? false)
+        Bus.emit(Bus.eventList.verified, {
+          verified: data?.verified ?? false,
+          address: provider.address,
+        })
       })
 
       await processError(err)

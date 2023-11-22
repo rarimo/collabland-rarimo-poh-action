@@ -13,7 +13,7 @@ import { APP_DESCRIPTION, APP_NAME } from './static'
 
 const validationSchema = yup.object({
   ...sharedValidationSchema,
-  env: yup.string().oneOf(['devnet', 'mainnet']).required(),
+  pohAppUrl: yup.string().required(),
 })
 
 const loadCfg = (): ClientConfig => {
@@ -25,7 +25,9 @@ const loadCfg = (): ClientConfig => {
     // configurable
     appUrl: process.env.NEXT_PUBLIC_APP_URL,
     collablandClientId: process.env.NEXT_PUBLIC_COLLABLAND_CLIENT_ID,
+    collablandApiUrl: process.env.NEXT_PUBLIC_COLLABLAND_API_URL,
     env: process.env.NEXT_PUBLIC_ENVIRONMENT,
+    pohAppUrl: process.env.NEXT_PUBLIC_POH_APP_URL,
   })
 
   const validated = validationSchema.validateSync(config, {

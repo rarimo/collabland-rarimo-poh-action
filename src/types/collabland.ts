@@ -35,3 +35,10 @@ export type CollandLandAccountResponse = {
   type: string
   idp: string
 }
+
+export type CollablandCheckRolesResponse = {
+  roles: {
+    id: string
+    granted: boolean
+  }[]
+}

@@ -2,7 +2,7 @@ import { APIInteractionResponse, InteractionResponseType, MessageFlags } from '@
 
 import { logger } from '@/log'
 
-export const unathorized = (reason?: string) => {
+export const unathorizedAction = (reason?: string) => {
   const msg = "You're not authorized to access this resource"
 
   const response: APIInteractionResponse = {
@@ -16,7 +16,7 @@ export const unathorized = (reason?: string) => {
   return Response.json(response)
 }
 
-export const badRequest = (reason?: string) => {
+export const badRequestAction = (reason?: string) => {
   const response: APIInteractionResponse = {
     type: InteractionResponseType.ChannelMessageWithSource,
     data: {
@@ -28,7 +28,7 @@ export const badRequest = (reason?: string) => {
   return Response.json(response)
 }
 
-export const internalError = (reason?: string, err?: Error) => {
+export const internalErrorAction = (reason?: string, err?: Error) => {
   if (err) logger.error(`Internal error: ${err.message}`, err)
 
   const response: APIInteractionResponse = {

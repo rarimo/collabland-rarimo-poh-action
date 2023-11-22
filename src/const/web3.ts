@@ -28,6 +28,10 @@ export const PROVIDER_EVENTS: Array<keyof IProvider> = [
 export const POLYGON_CHAIN_ID = 137
 export const GOERLI_CHAIN_ID = 5
 
+// https://docs.rarimo.com/reference/proof-of-humanity/#deployments
+export const POLYGON_SBT_CONTRACT = '0xaD7De01cb7eaAFf3a419A0a0a3133a964cD90373'
+export const GOERLI_SBT_CONTRACT = '0xfaA7e7F14a2dCAD537d0141533bB58D62dD8022c'
+
 export const SUPPORTED_CHAINS_MAINNET = [
   {
     id: POLYGON_CHAIN_ID,
