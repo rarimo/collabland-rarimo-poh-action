@@ -197,4 +197,3 @@ This project is under the MIT License — see the [LICENSE](./LICENSE) file for 
 
 [Test the Actions in a Discord server]: https://dev.collab.land/docs/upstream-integrations/collab-actions/getting-started-with-collab-actions#test-the-actions-in-a-discord-server
 
-[OAuth2 Client Application]: https://dev.collab.land/docs/downstream-integrations/api/authentication#register-your-oauth2-client-application
