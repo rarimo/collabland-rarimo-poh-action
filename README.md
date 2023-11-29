@@ -10,7 +10,6 @@ allow members to verify their humanity using the [Rarimo Proof of Humanity] case
     + [Environment](#environment)
     + [Tunnel Forwarding](#tunnel-forwarding)
 - [Configuration](#configuration)
-  * [Slash command names](#slash-command-names)
 - [Setup](#setup)
   * [Starting the server](#starting-the-server)
 - [Run with Docker](#run-with-docker)
@@ -37,44 +36,21 @@ allow members to verify their humanity using the [Rarimo Proof of Humanity] case
 
 ## Configuration
 
-- Set `NEXT_PUBLIC_APP_URL` to the URL of your application in the `.env` file. This URL will be used
+- Set `APP_URL` to the URL of your application in the `.env` file. This URL will be used
   to redirect users after they verify their humanity. By default, it should be `http://localhost:8000`
   if you didn't change the port (check [Starting the server](#starting-the-server))
-- Set `NEXT_PUBLIC_ENVIRONMENT` to `devnet` or `mainnet` in the `.env` file to specify which Rarimo
-  Proof of Humanity network you want to use. For the `devnet` Goerli network is used, for the
-  `mainnet` Polygon network is used.
-- Set `NEXT_PUBLIC_POH_APP_URL` to the according url of the Rarimo Proof of Humanity application in
+- Set `POH_APP_URL` to the according url of the Rarimo Proof of Humanity application in
   the `.env` file. By default, it should be `https://robotornot.mainnet-beta.rarimo.com` for the
   `devnet` and `https://robotornot.rarimo.com` for the `mainnet`.
-- Set `NEXT_PUBLIC_COLLABLAND_API_URL` to the according url of the Collab.Land API in the `.env`
-  file. By default, it should be `https://api-qa.collab.land` for the `devnet` and
-  `https://api.collab.land` for the `mainnet`.
-- Set `DB_URL` to the URL of your Postgres database in the `.env` file. By default, it should be
-  `postgresql://rarimo-poh:rarimo-poh@localhost:15432/rarimo-poh-db?sslmode=disable` (by default
-  [docker-compose.yml](./docker-compose.yml)) expose `15432` port for Postgres.
 - (Optional) In order to verify the webhook requests coming from the Collab.Land bot, please set
   the `SKIP_VERIFICATION` variable in your `.env` file to `false`.
 - Please, fetch the public key from the [**[Collab.Land Config]**], and replace
   your `COLLABLAND_ECDSA_PUBLIC_KEY`, `COLLABLAND_ED25519_PUBLIC_KEY_HEX`
   variables in the `.env` file.
-- [Register OAuth2 Client Application] and set the `NEXT_PUBLIC_COLLABLAND_CLIENT_ID`,
-  `COLLABLAND_CLIENT_SECRET`, `COLLABLAND_API_KEY` variables in the `.env` file.
 - (Optional) Set `LOG_LEVEL` to `debug` or `info` in the `.env` file to specify the log level. By default, it
   will be `debug`.
 
 Check the full `.env` file [example](./env-example) config for more details.
-
-### Slash command names
-
-Slash command names could be changed in `.env` file, if needed, by the default, they are `setup` and
-`verify` accordingly:
-
-```bash
-# file: .env
-
-SETUP_ACTION_NAME="my-setup-command"
-VERIFY_ACTION_NAME="my-verify-command
-```
 
 ## Setup
 
@@ -101,14 +77,14 @@ VERIFY_ACTION_NAME="my-verify-command
 
   {
     "scripts": {
-      "dev-server": "next dev -p <PORT>"
+      "dev": "next dev -p <PORT>"
     }
   }
   ```
   ```bash
   # file: .env
 
-  NEXT_PUBLIC_APP_URL="http://localhost:<PORT>"
+  APP_URL="http://localhost:<PORT>"
   ```
 - To expose your localhost API to public domain, open a new terminal and start NGROK:
   ```bash
@@ -125,14 +101,6 @@ VERIFY_ACTION_NAME="my-verify-command
 
 ### Build
 
-Before the build replace database url in the `.env` file with the following:
-
-```bash
-# file: .env
-
-DB_URL="postgresql://rarimo-poh:rarimo-poh@rarimo-poh-db:5432/rarimo-poh-db?sslmode=disable"
-```
-
 To build the Docker image, run the following command:
 
 ```bash
@@ -141,46 +109,31 @@ docker build . -t rarimo-poh:latest
 
 ### Run
 
-1. Uncomment following lines in the [docker-compose.yml](./docker-compose.yml) file:
-    ```yaml
-    # file: docker-compose.yml
+Run the following command:
 
-    # uncomment to test local build
-    #
-    #  rarimo-poh:
-    #    image: rarimo-poh:latest
-    #    restart: unless-stopped
-    #    entrypoint: sh -c "node_modules/.bin/knex migrate:up && node_modules/.bin/next start"
-    #    ports:
-    #      - "8000:8000"
-    ```
+```bash
+docker-compose up -d
+```
 
-2. Run the following command:
+Application will be available at `http://localhost:8000`, if you didn't change the port in the
+[package.json] file and in the `.env` file, otherwise, you have to change the port accordingly in
+the `docker-compose.yml` file in the `ports` section:
 
-    ```bash
-    docker-compose up -d
-    ```
+```yaml
+# file: docker-compose.yml
 
-    Application will be available at `http://localhost:8000`, if you didn't change the port in the
-    [package.json] file and in the `.env` file, otherwise, you have to change the port accordingly in
-    the `docker-compose.yml` file in the `ports` section:
-
-    ```yaml
-    # file: docker-compose.yml
-
-    services:
-      rarimo-poh:
-        image: rarimo-poh:latest
-        restart: unless-stopped
-        entrypoint: sh -c "node_modules/.bin/knex migrate:up && node_modules/.bin/next start"
-        ports:
-          - "<PORT>:8000"
-    ```
+services:
+  rarimo-poh:
+    image: rarimo-poh:latest
+    restart: unless-stopped
+    entrypoint: sh -c "node_modules/.bin/next start"
+    ports:
+      - "<PORT>:8000"
+```
 
 ## Installing the Collab.Land actions
 
 - Follow these steps to install the Collab.Land actions: [Test the Actions in a Discord server]
-- Setup action with the `/setup` command
 - Verify your humanity with the `/verify` command
 
 ## API Specifications
@@ -190,7 +143,6 @@ docker build . -t rarimo-poh:latest
   - POST `/verify/interactions`: To handle the Discord interactions corresponding to the `/verify`
     command
 - The slash commands provide example codes for the following Discord interactions:
-  - `/setup`: Allows you to setup Rarimo Proof of Humanity Verify Action for your Discord server.
   - `/verify`: Verify your humanity with Rarimo Proof of Humanity use case and get the verified role
     in your Discord server.
 

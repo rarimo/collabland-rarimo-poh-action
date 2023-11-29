@@ -1,27 +1,9 @@
 version: "3.7"
 
 services:
-# uncomment to test local build
-#
-#  rarimo-poh:
-#    image: rarimo-poh:latest
-#    restart: unless-stopped
-#    entrypoint: sh -c "node_modules/.bin/knex migrate:up && node_modules/.bin/next start"
-#    ports:
-#      - "8000:8000"
-
-  rarimo-poh-db:
-    image: postgres:13
+  rarimo-poh:
+    image: rarimo-poh:latest
     restart: unless-stopped
-    environment:
-      - POSTGRES_USER=rarimo-poh
-      - POSTGRES_PASSWORD=rarimo-poh
-      - POSTGRES_DB=rarimo-poh-db
-      - PGDATA=/pgdata
-    volumes:
-      - rarimo-poh-data:/pgdata
+    entrypoint: sh -c "node_modules/.bin/next start"
     ports:
-      - "15432:5432"
-
-volumes:
-  rarimo-poh-data:
+      - "8000:8000"

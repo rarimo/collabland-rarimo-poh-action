@@ -1,22 +1,15 @@
-import {
-  ApplicationCommandOptionType,
-  ApplicationCommandType,
-  DiscordActionMetadata,
-  InteractionType,
-} from '@collabland/discord'
+import { ApplicationCommandType, DiscordActionMetadata, InteractionType } from '@collabland/discord'
 import { MiniAppManifest } from '@collabland/models'
 import { join } from 'path'
 
 import PackageJson from '@/../package.json'
-import { serverConfig } from '@/config/server'
-
-import { SETUP_ACTION_OPTION_NAME } from './actions'
+import { config } from '@/config'
 
 const keywords = ['verification', 'rarimo', 'proof-of-humanity']
 
 const appIcon = {
   label: 'Rarimo Proof of Humanity Action',
-  src: join(serverConfig.appUrl, '/apple-icon.png'),
+  src: join(config.appUrl, '/apple-icon.png'),
   sizes: '186x186',
 }
 
@@ -26,11 +19,13 @@ const manifest = new MiniAppManifest({
   shortName: 'rarimo-poh-action',
   appType: 'action',
   developer: PackageJson.author,
-  description: serverConfig.appDescription,
-  shortDescription: serverConfig.appDescription,
+  description:
+    "Verify Discord server's members humanity using the Rarimo Proof of Humanity case and Collab.land bot.",
+  shortDescription:
+    "Verify Discord server's members humanity using the Rarimo Proof of Humanity case and Collab.land bot.",
   platforms: ['discord'],
   version: { name: PackageJson.version },
-  website: serverConfig.appUrl,
+  website: config.pohAppUrl,
   keywords,
   tags: keywords,
   thumbnails: [appIcon],
@@ -48,14 +43,9 @@ export const METADATA: DiscordActionMetadata = {
    */
   supportedInteractions: [
     {
-      // Handle setup slash command
-      type: InteractionType.ApplicationCommand,
-      names: [serverConfig.setupActionName],
-    },
-    {
       // Handle verify <role> slash command
       type: InteractionType.ApplicationCommand,
-      names: [serverConfig.verifyActionName],
+      names: ['verify'],
     },
   ],
   /**
@@ -63,33 +53,13 @@ export const METADATA: DiscordActionMetadata = {
    * Discord guild upon installation.
    */
   applicationCommands: [
-    // setup slash command
-    {
-      metadata: {
-        name: 'Setup Rarimo Proof of Humanity Verify Action',
-        shortName: serverConfig.setupActionName,
-        supportedEnvs: ['production', 'development'],
-      },
-      name: serverConfig.setupActionName,
-      type: ApplicationCommandType.ChatInput,
-      description: 'Allows you to setup Rarimo Proof of Humanity Verify Action',
-      options: [
-        {
-          name: SETUP_ACTION_OPTION_NAME,
-          description: 'Select the verified role',
-          type: ApplicationCommandOptionType.Role,
-          required: true,
-        },
-      ],
-    },
-    // verify slash command
     {
       metadata: {
         name: 'Verify your humanity with Rarimo Proof of Humanity use case',
-        shortName: serverConfig.verifyActionName,
+        shortName: 'verify',
         supportedEnvs: ['production', 'development'],
       },
-      name: serverConfig.verifyActionName,
+      name: 'verify',
       type: ApplicationCommandType.ChatInput,
       description: 'Allows you to verify your humanity with Rarimo Proof of Humanity use case',
       options: [],

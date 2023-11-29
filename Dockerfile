@@ -21,8 +21,6 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/migrations ./migrations
-COPY --from=builder /app/knexfile.js ./knexfile.js
 COPY .env .
 
 USER nextjs
@@ -34,4 +32,4 @@ ENV PORT 8000
 # Learn more here: https://nextjs.org/telemetry
 ENV NEXT_TELEMETRY_DISABLED 1
 
-ENTRYPOINT ["sh", "-c", "node_modules/.bin/knex migrate:up && node_modules/.bin/next start"]
+ENTRYPOINT ["sh", "-c", "node_modules/.bin/next start"]

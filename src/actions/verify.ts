@@ -7,30 +7,9 @@ import {
 } from '@collabland/discord'
 import { DiscordActionRequest } from '@collabland/discord'
 
-import { serverConfig } from '@/config/server'
-import { db } from '@/db'
-import { go } from '@/helpers/go'
-import { internalErrorAction } from '@/http'
+import { config } from '@/config'
 
 export const handleVerifyAction = async (interaction: DiscordActionRequest) => {
-  const guildId = interaction.guild_id ?? ''
-
-  const [err, verifiedRole] = await go(() => db.verifiedRolesQ.get(guildId))
-  if (err) return internalErrorAction('Failed to get verified role')
-
-  if (!verifiedRole) {
-    return Response.json({
-      type: InteractionResponseType.ChannelMessageWithSource,
-      data: {
-        content:
-          "Rarimo Proof of Humanity Verify Action hasn't been setup yet, please run /setup first.",
-      },
-    })
-  }
-
-  const redirectUrl = new URL(serverConfig.appUrl)
-  redirectUrl.searchParams.set('guild_id', guildId)
-
   const response: APIInteractionResponse = {
     type: InteractionResponseType.ChannelMessageWithSource,
     data: {
@@ -39,8 +18,21 @@ export const handleVerifyAction = async (interaction: DiscordActionRequest) => {
       embeds: [
         {
           title: `Welcome to ${interaction?.actionContext?.guildName}!`,
-          description:
-            "Upon clicking the button, you'll be redirected to the verification page. Your role will automatically be assigned upon a successful Proof of Humanity verification.",
+          description: `To authenticate your identity through Rarimo's Proof of Humanity and Collab.Land Bot, please follow these steps:`,
+          fields: [
+            {
+              name: '1. Acquiring Rarimo Proof of Humanity',
+              value: `Click on the "Verify Your Humanity" button located directly beneath this message. This will redirect you to the Rarimo Proof of Humanity dApp, where you can obtain your proof of humanity. `,
+            },
+            {
+              name: '2. Verifying assets through the Collab.Land Bot',
+              value: `Once you have completed the verification on the Rarimo platform, return to Discord and navigate to the "collabland-join" channel. Follow the instructions provided by the Collab.Land bot to verify your assets, securing a verified role on the ${interaction?.actionContext?.guildName}! Discord server.`,
+            },
+            {
+              name: '3. Enjoying your verified role',
+              value: 'Revel in the benefits of your verified status within your community.',
+            },
+          ],
           // https://gist.github.com/thomasbnt/b6f455e2c7d743b796917fa3c205f812
           color: 3447003,
           image: { url: 'https://rarimo.com/img/branding/og-img.jpg', height: 256, width: 512 },
@@ -54,7 +46,7 @@ export const handleVerifyAction = async (interaction: DiscordActionRequest) => {
               style: ButtonStyle.Link,
               label: 'Verify Your Humanity',
               type: ComponentType.Button,
-              url: redirectUrl.toString(),
+              url: config.pohAppUrl,
             },
           ],
         },

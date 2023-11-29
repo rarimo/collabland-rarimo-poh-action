@@ -1,6 +1,5 @@
-import { handleSetupAction, handleVerifyAction } from '@/actions'
-import { serverConfig } from '@/config/server'
-import { verifyCollablandRequest } from '@/helpers/collabland-verify'
+import { handleVerifyAction } from '@/actions'
+import { verifyCollablandRequest } from '@/helpers'
 import { badRequestAction, unathorizedAction } from '@/http'
 
 export const POST = async (request: Request) => {
@@ -9,10 +8,7 @@ export const POST = async (request: Request) => {
 
   if (!verifyResult.verified) return unathorizedAction(verifyResult.reason)
 
-  if (interaction?.data?.name === serverConfig.setupActionName) {
-    return handleSetupAction(interaction)
-  }
-  if (interaction?.data?.name === serverConfig.verifyActionName) {
+  if (interaction?.data?.name === 'verify') {
     return handleVerifyAction(interaction)
   }
 

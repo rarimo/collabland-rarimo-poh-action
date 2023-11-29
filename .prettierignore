@@ -1,5 +1,5 @@
 # Ignore artifacts:
-dist
+.next
 node_modules
 .eslintcache
 tsconfig.json
