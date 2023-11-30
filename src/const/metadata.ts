@@ -20,7 +20,7 @@ const manifest = new MiniAppManifest({
   appType: 'action',
   developer: PackageJson.author,
   description:
-    "Verify Discord server's members humanity using the Rarimo Proof of Humanity case and Collab.land bot.",
+    "Repel the bots from your discord server using Rarimo's Proof of Humanity.",
   shortDescription:
     "Verify Discord server's members humanity using the Rarimo Proof of Humanity case and Collab.land bot.",
   platforms: ['discord'],
