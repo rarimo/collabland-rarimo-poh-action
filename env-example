@@ -1,4 +1,4 @@
-NEXT_PUBLIC_APP_URL="http://localhost:8000"
+APP_URL="http://localhost:8000"
 POH_APP_URL="https://robotornot.mainnet-beta.rarimo.com"
 
 # https://api-qa.collab.land/config
