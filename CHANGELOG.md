@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ## [0.1.0] - 2023-08-02
 
-### Under the hood changes
+### Added
 
 - Initiated project
 
