@@ -1,6 +1,6 @@
 <div align="center"><h1><b>Rarimo Proof of Humanity Collab.Land Action</b></h1></div>
 
-This repo implements an [Collab.Land] action to add `/verify` command to your Discord server and
+This repo implements an [Collab.Land] action that adds `/verify` command to your Discord server and
 allow members to verify their humanity using the [Rarimo Proof of Humanity] case.
 
 ## Table of Contents
