@@ -27,7 +27,7 @@ const loadCfg = (): Config => {
     collablandEcdsaPublicKey: process.env.COLLABLAND_ECDSA_PUBLIC_KEY,
     collablandEd25519PublicKeyHex: process.env.COLLABLAND_ED25519_PUBLIC_KEY_HEX,
     pohAppUrl: process.env.POH_APP_URL,
-    appUrl: process.env.APPLICATION_URL,
+    appUrl: process.env.NEXT_PUBLIC_APP_URL,
   })
 
   return validationSchema.validateSync(config, {

@@ -36,7 +36,7 @@ allow members to verify their humanity using the [Rarimo Proof of Humanity] case
 
 ## Configuration
 
-- Set `APPLICATION_URL` to the URL of your application in the `.env` file. This URL will be used
+- Set `NEXT_PUBLIC_APP_URL` to the URL of your application in the `.env` file. This URL will be used
   to redirect users after they verify their humanity. By default, it should be `http://localhost:8000`
   if you didn't change the port (check [Starting the server](#starting-the-server))
 - Set `POH_APP_URL` to the according url of the Rarimo Proof of Humanity application in
