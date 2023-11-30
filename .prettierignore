@@ -1,4 +1,8 @@
 # Ignore artifacts:
-build
-coverage
-dist
+.next
+node_modules
+.eslintcache
+tsconfig.json
+*.md
+.vscode/*
+.yarn/*

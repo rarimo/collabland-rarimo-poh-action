@@ -1,87 +1,199 @@
-<div align="center"><h1><b>Collab🤝Land Actions Express.js Template</b></h1></div>
+<div align="center"><h1><b>Rarimo Proof of Humanity Collab.Land Action</b></h1></div>
 
-## **Introduction** 🙏
+This repo implements an [Collab.Land] action that adds `/verify` command to your Discord server and
+allow members to verify their humanity using the [Rarimo Proof of Humanity] case.
 
-The repository serves as a Express.js template for implementing Collab.Land actions for Discord interactions. The Collab.Land actions are installed to the Collab.Land bot through the **`/test-flight`** miniapp available in the Collab.Land marketplace.
+## Table of Contents
 
-## **Pre-requisites** 💻
+- [Getting Started](#getting-started)
+  * [Pre-requisites](#pre-requisites)
+    + [Environment](#environment)
+    + [Tunnel Forwarding](#tunnel-forwarding)
+- [Configuration](#configuration)
+- [Setup](#setup)
+  * [Starting the server](#starting-the-server)
+- [Run with Docker](#run-with-docker)
+  * [Build](#build)
+  * [Run](#run)
+- [Installing the Collab.Land actions](#installing-the-collabland-actions)
+- [API Specifications](#api-specifications)
+- [Contributing](#contributing)
+- [Changelog](#changelog)
+- [License](#license)
 
-### Environment:
+## Getting Started
 
-- Node.JS 18.14.0 [[Download Here](https://nodejs.org/en/download/)]
-- Typescript 4.9 [[Instructions to Download](https://www.typescriptlang.org/download#:~:text=Globally%20Installing%20TypeScript)]
+### Pre-requisites
 
-### Code Editors (Optional, but we prefer it!):
+#### Environment
 
-- Visual Studio Code _(We love VSCode 💙)_ [[Download Here](https://code.visualstudio.com/)]
-- ESLint Extension for VSCode [[Installation Instructions](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)]
-- Prettier Extension for VSCode [[Installation Instructions](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)]
+- **[Node.JS >= version 18]**
+- **[Docker]**
 
-### Tunnel Forwarding:
+#### Tunnel Forwarding
 
-- NGROK [[Installation Instructions](https://ngrok.com/docs/getting-started)]
+- **[ngrok]**
 
-## **Server Setup** ⚙️
+## Configuration
 
-### Starting the server:
+- Set `APP_URL` to the URL of your application in the `.env` file. This URL will be used
+  to redirect users after they verify their humanity. By default, it should be `http://localhost:8000`
+  if you didn't change the port (check [Starting the server](#starting-the-server))
+- Set `POH_APP_URL` to the according url of the Rarimo Proof of Humanity application in
+  the `.env` file. By default, it should be `https://robotornot.mainnet-beta.rarimo.com` for the
+  `devnet` and `https://robotornot.rarimo.com` for the `mainnet`.
+- (Optional) In order to verify the webhook requests coming from the Collab.Land bot, please set
+  the `SKIP_VERIFICATION` variable in your `.env` file to `false`.
+- Please, fetch the public key from the [**[Collab.Land Config]**], and replace
+  your `COLLABLAND_ECDSA_PUBLIC_KEY`, `COLLABLAND_ED25519_PUBLIC_KEY_HEX`
+  variables in the `.env` file.
+- (Optional) Set `LOG_LEVEL` to `debug` or `info` in the `.env` file to specify the log level. By default, it
+  will be `debug`.
+
+Check the full `.env` file [example](./env-example) config for more details.
+
+## Setup
+
+### Starting the server
 
 - Clone the repository to your machine
 - Open the folder in a code editor of your choice
 - Install dependencies:
   ```bash
-  npm install
+  yarn install
   ```
-- Build the project:
+- Run Postgres in Docker:
   ```bash
-  npm run build
+  docker-compose up -d
   ```
-- Start the server (The server starts in port 3000 by default):
+- Start the server (The server starts in port `8000` by default):
   ```bash
-  npm start
+  yarn dev
   ```
-- If the server fails due to the port being occupied, start the server in a different port:
+- If the server fails due to the port being occupied, change the server port in the [package.json]
+  file and in the `.env` file accordingly:
+  ```json
+  // file: package.json
+
+  {
+    "scripts": {
+      "dev": "next dev -p <PORT>"
+    }
+  }
+  ```
   ```bash
-  PORT=5000 npm start
+  # file: .env
+
+  APP_URL="http://localhost:<PORT>"
   ```
 - To expose your localhost API to public domain, open a new terminal and start NGROK:
   ```bash
   ngrok http <PORT>
   ```
-- Copy the `.ngrok.io` link shown in your terminal
+- Copy the `.ngrok.io` link shown in your terminal:
+  ```bash
+  # Example:
 
-### Installing the Collab.Land actions:
+  https://0c49-2601-646-9e00-80-3964-47d-7146-ff13.ngrok.io/
+  ```
 
-- The API exposes 3 types of Collab.Land actions:
-  - `<NGROK URL>/hello-action` : Sample Discord interaction demo-ing Discord message interactions
-  - `<NGROK URL>/button-action` : Sample Discord interaction demo-ing Discord button interactions
-  - `<NGROK URL>/popup-action` : Sample Discord interaction demo-ing Discord modal interactions
-- Use the `/test-flight install action-url: <Your action URL>` command in the Collab.Land Bot to install the Collab.Land actions.
+## Run with Docker
 
-### Switching on signature verification:
+### Build
 
-- In order to verify the webhook requests coming from the Collab.Land bot, please delete the `SKIP_VERIFICATION` variable in your `.env` file and restart the server.
-- Please fetch the public key from the [[**Collab.Land Config**](https://api-qa.collab.land/config)], and replace your `COLLABLAND_ACTION_PUBLIC_KEY` variable in the `.env` file.
+To build the Docker image, run the following command:
 
-## **API Specifications** 🛠️
+```bash
+docker build . -t rarimo-poh:latest
+```
+
+### Run
+
+Run the following command:
+
+```bash
+docker-compose up -d
+```
+
+Application will be available at `http://localhost:8000`, if you didn't change the port in the
+[package.json] file and in the `.env` file, otherwise, you have to change the port accordingly in
+the `docker-compose.yml` file in the `ports` section:
+
+```yaml
+# file: docker-compose.yml
+
+services:
+  rarimo-poh:
+    image: rarimo-poh:latest
+    restart: unless-stopped
+    entrypoint: sh -c "node_modules/.bin/next start"
+    ports:
+      - "<PORT>:8000"
+```
+
+## Installing the Collab.Land actions
+
+- Follow these steps to install the Collab.Land actions: [Test the Actions in a Discord server]
+- Verify your humanity with the `/verify` command
+
+## API Specifications
 
 - The API exposes two routes per slash command:
-  - GET `/hello-action/metadata` : To provide the metadata for the `/hello-action` command
-  - POST `/hello-action/interactions` : To handle the Discord interactions corresponding to the `/hello-action` command
-  - GET `/button-action/metadata` : To provide the metadata for the `/button-action` command
-  - POST `/button-action/interactions` : To handle the Discord interactions corresponding to the `/button-action` command
-  - GET `/popup-action/metadata` : To provide the metadata for the `/popup-action` command
-  - POST `/popup-action/interactions` : To handle the Discord interactions corresponding to the `/popup-action` command
+  - GET `/verify/metadata`: To provide the metadata for the `/verify` command
+  - POST `/verify/interactions`: To handle the Discord interactions corresponding to the `/verify`
+    command
 - The slash commands provide example codes for the following Discord interactions:
-  - `/hello-action` : It shows how to interact with a basic slash command Discord interaction, and then reply to that interaction. Along with that it shows an example of how to edit messages, delete messages or send follow-up messages using Collab.Land actions.
-  - `/button-action` : It shows how to create buttons using Discord interactions, and then respond to the button events.
-  - `/popup-action` : It shows how to send modals for forms using Discord interactions, and then listen for the form submissions and even read data submitted by the user.
+  - `/verify`: Verify your humanity with Rarimo Proof of Humanity use case and get the verified role
+    in your Discord server.
 
-## **Contributing** 🫶
+## Contributing
 
-- Please go through the following article [[**Link**](https://dev.collab.land/docs/upstream-integrations/build-a-custom-action)] to understand the deep technical details regarding building on the Collab.Land actions platform.
-- In order to change the slash commands for the actions, try editing the `MiniAppManifest` models mentioned in the metadata route handlers [[Here 👀]](src/routes/hello-action.ts#L86)
-- In order to change the logic which runs on the slash commands, try changing the `handle()` function mentioned in the interactions route handlers [[Here 👀]](src/routes/hello-action.ts#L23)
+We welcome contributions from the community! To contribute to this project, follow these steps:
 
----
+1. Please go through the following ["build a custom action"] article to understand the deep
+   technical details regarding building on the [Collab.Land] actions platform.
+1. Fork the repository.
+1. Create a new branch with a descriptive name for your feature or bug fix.
+1. Make your changes and commit them.
+1. Push your changes to your branch on your GitHub fork.
+1. Create a pull request from your branch to the `main` branch of this repository.
 
-<div align="center"><b><i><small>Built with ❤️ and 🤝 by Collab.Land</small></i></b></div>
+Please ensure your pull request adheres to the following guidelines:
+
+- Add a clear pull request title;
+- Add a comprehensive pull request description that includes the motivation behind the changes,
+  steps needed to test them, etc;
+- Update the CHANGELOG.md accordingly;
+- Keep the codebase clean and well-documented;
+- Make sure your code is properly tested;
+- Reference any related issues in your pull request;
+
+The maintainers will review your pull request and may request changes or provide feedback before
+merging. We appreciate your contributions!
+
+## Changelog
+
+For the changelog, see [CHANGELOG.md](./CHANGELOG.md).
+
+## License
+
+This project is under the MIT License — see the [LICENSE](./LICENSE) file for details.
+
+[Rarimo Proof of Humanity]: https://docs.rarimo.com/use-cases/proof-of-humanity
+
+[ngrok]: https://ngrok.com/docs/getting-started
+
+[Node.JS >= version 18]: https://nodejs.org/en/download/
+
+[Docker]: https://docs.docker.com/engine/install/
+
+[Collab.Land]: https://www.collab.land/
+
+[Collab.Land Config]: https://api-qa.collab.land/config
+
+["build a custom action"]: https://dev.collab.land/docs/upstream-integrations/collab-actions/getting-started-with-collab-actions
+
+[package.json]: ./package.json
+
+[Test the Actions in a Discord server]: https://dev.collab.land/docs/upstream-integrations/collab-actions/getting-started-with-collab-actions#test-the-actions-in-a-discord-server
+

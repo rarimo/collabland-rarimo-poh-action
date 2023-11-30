@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  rarimo-poh:
+    image: rarimo-poh:latest
+    restart: unless-stopped
+    entrypoint: sh -c "node_modules/.bin/next start"
+    ports:
+      - "8000:8000"
