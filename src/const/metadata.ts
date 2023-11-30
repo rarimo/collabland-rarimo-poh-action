@@ -55,7 +55,7 @@ export const METADATA: DiscordActionMetadata = {
   applicationCommands: [
     {
       metadata: {
-        name: 'Verify your humanity with Rarimo Proof of Humanity use case',
+        name: 'Verify your humanity with Rarimo',
         shortName: 'verify',
         supportedEnvs: ['production', 'development'],
       },
