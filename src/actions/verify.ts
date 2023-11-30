@@ -22,7 +22,7 @@ export const handleVerifyAction = async (interaction: DiscordActionRequest) => {
           fields: [
             {
               name: '1. Acquiring Rarimo Proof of Humanity',
-              value: `Click on the "Verify Your Humanity" button located directly beneath this message. This will redirect you to the Rarimo Proof of Humanity dApp, where you can obtain your proof of humanity. `,
+              value: `Click on the "Verify Your Humanity" button directly beneath this message. This will redirect you to the Rarimo Proof of Humanity DApp, where you can get verified. `,
             },
             {
               name: '2. Verifying assets through the Collab.Land Bot',
