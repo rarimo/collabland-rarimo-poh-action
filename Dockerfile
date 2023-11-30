@@ -4,7 +4,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY . ./
 
-RUN yarn install && yarn build
+RUN npm install --legacy-peer-deps && npm run build --legacy-peer-deps
 
 # Production image, copy all the files and run next
 FROM node:18-alpine AS runner
@@ -26,10 +26,11 @@ COPY .env .
 USER nextjs
 
 EXPOSE 8000
+
 ENV PORT 8000
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 ENV NEXT_TELEMETRY_DISABLED 1
 
-ENTRYPOINT ["sh", "-c", "node_modules/.bin/next start"]
+CMD ["node_modules/.bin/next", "start"]
