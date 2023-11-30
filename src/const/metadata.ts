@@ -19,10 +19,8 @@ const manifest = new MiniAppManifest({
   shortName: 'rarimo-poh-action',
   appType: 'action',
   developer: PackageJson.author,
-  description:
-    "Repel the bots from your discord server using Rarimo's Proof of Humanity.",
-  shortDescription:
-    "Repel the bots from your discord server using Rarimo's Proof of Humanity.",
+  description: "Repel the bots from your discord server using Rarimo's Proof of Humanity.",
+  shortDescription: "Repel the bots from your discord server using Rarimo's Proof of Humanity.",
   platforms: ['discord'],
   version: { name: PackageJson.version },
   website: config.pohAppUrl,
