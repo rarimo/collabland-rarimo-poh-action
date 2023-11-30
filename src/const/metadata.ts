@@ -22,7 +22,7 @@ const manifest = new MiniAppManifest({
   description:
     "Repel the bots from your discord server using Rarimo's Proof of Humanity.",
   shortDescription:
-    "Verify Discord server's members humanity using the Rarimo Proof of Humanity case and Collab.land bot.",
+    "Repel the bots from your discord server using Rarimo's Proof of Humanity.",
   platforms: ['discord'],
   version: { name: PackageJson.version },
   website: config.pohAppUrl,
