@@ -18,7 +18,7 @@ export const handleVerifyAction = async (interaction: DiscordActionRequest) => {
       embeds: [
         {
           title: `Welcome to ${interaction?.actionContext?.guildName}!`,
-          description: `To authenticate your identity through Rarimo's Proof of Humanity and Collab.Land Bot, please follow these steps:`,
+          description: `To prove your humanity, please follow these steps:`,
           fields: [
             {
               name: '1. Acquiring Rarimo Proof of Humanity',
