@@ -9,7 +9,7 @@ const keywords = ['verification', 'rarimo', 'proof-of-humanity']
 
 const appIcon = {
   label: 'Rarimo Proof of Humanity Action',
-  src: join(config.appUrl, '/apple-icon.png'),
+  src: join(config.appUrl, '/logo.png'),
   sizes: '186x186',
 }
 
