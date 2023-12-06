@@ -4,8 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog], and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
+### Added
+- QA environment CI job
+
 ### Fixed
 - App icon url in the action metadata
+
+## Removed
+- ECDSA Collab.Land request verification support
 
 ## [0.1.0] - 2023-11-07
 

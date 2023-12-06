@@ -45,8 +45,7 @@ allow members to verify their humanity using the [Rarimo Proof of Humanity] case
 - (Optional) In order to verify the webhook requests coming from the Collab.Land bot, please set
   the `SKIP_VERIFICATION` variable in your `.env` file to `false`.
 - Please, fetch the public key from the [**[Collab.Land Config]**], and replace
-  your `COLLABLAND_ECDSA_PUBLIC_KEY`, `COLLABLAND_ED25519_PUBLIC_KEY_HEX`
-  variables in the `.env` file.
+  `COLLABLAND_ED25519_PUBLIC_KEY_HEX` variables in the `.env` file.
 - (Optional) Set `LOG_LEVEL` to `debug` or `info` in the `.env` file to specify the log level. By default, it
   will be `debug`.
 
