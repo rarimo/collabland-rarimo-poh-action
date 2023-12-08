@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 ### Added
 - QA environment CI job
 
+### Changed
+- Verify action texting
+
 ### Fixed
 - App icon url in the action metadata
 
