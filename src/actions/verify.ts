@@ -18,19 +18,19 @@ export const handleVerifyAction = async (interaction: DiscordActionRequest) => {
       embeds: [
         {
           title: `Welcome to ${interaction?.actionContext?.guildName}!`,
-          description: `To prove your humanity, please follow these steps:`,
+          description: 'To prove your humanity, please follow these steps:',
           fields: [
             {
-              name: '1. Acquiring Rarimo Proof of Humanity',
-              value: `Click on the "Verify Your Humanity" button directly beneath this message. This will redirect you to the Rarimo Proof of Humanity DApp, where you can get verified. `,
+              name: 'Step 1️⃣',
+              value: `Click on the "Verify Your Humanity" button which will redirect you to the Rarimo Proof of Humanity DApp`,
             },
             {
-              name: '2. Verifying assets through the Collab.Land Bot',
-              value: `Once you have completed the verification on the Rarimo platform, return to Discord and navigate to the "collabland-join" channel. Follow the instructions provided by the Collab.Land bot to verify your assets, securing a verified role on the ${interaction?.actionContext?.guildName}! Discord server.`,
+              name: 'Step 2️⃣',
+              value: `Choose one of many Identity providers in the DApp and make sure that you fully go through the verification process until you see the "You're already on the human side of the web" message.`,
             },
             {
-              name: '3. Enjoying your verified role',
-              value: 'Revel in the benefits of your verified status within your community.',
+              name: 'Step 3️⃣',
+              value: `Come back to Discord, follow the instructions provided by the Collab.Land bot to verify you hold a PoH Credential`,
             },
           ],
           // https://gist.github.com/thomasbnt/b6f455e2c7d743b796917fa3c205f812
