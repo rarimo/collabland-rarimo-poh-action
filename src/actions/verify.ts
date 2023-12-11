@@ -36,7 +36,7 @@ export const handleVerifyAction = async (interaction: DiscordActionRequest) => {
           // https://gist.github.com/thomasbnt/b6f455e2c7d743b796917fa3c205f812
           color: 3447003,
           image: {
-            url: 'https://raw.githubusercontent.com/rarimo/collabland-rarimo-poh-action/main/public/thumbnail.png',
+            url: 'https://raw.githubusercontent.com/rarimo/collabland-rarimo-poh-action/1.0.0/public/thumbnail.png',
             height: 512,
             width: 896,
           },
