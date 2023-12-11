@@ -64,7 +64,7 @@ function validateChangelogHasVersionOnTop() {
 }
 
 function validateChangelogAnchorsLegend() {
-  const baseRepoUrl = 'https://gitlab.com/rarimo/collabland-rarimo-poh-action'
+  const baseRepoUrl = 'https://github.com/rarimo/collabland-rarimo-poh-action'
   const anyReleaseTagRe = /## \[\d+\.\d+\.\d+((-rc|-x)\.\d+)?\] - \d{4}-\d{2}-\d{2}/gi
 
   const expectedAnchorsLegend =
@@ -73,7 +73,7 @@ function validateChangelogAnchorsLegend() {
       .map(tag => tag.match(/\[(.*)\]/)[1])
       .map((cur, curId, arr) => {
         return curId === arr.length - 1
-          ? `[${cur}]: ${baseRepoUrl}/tags/${cur}`
+          ? `[${cur}]: ${baseRepoUrl}/releases/tag/${cur}`
           : `[${cur}]: ${baseRepoUrl}/compare/${arr[curId + 1]}...${cur}`
       })
       .join('\n')
