@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ### Changed
 - Verify action texting
+- Thumbnail image
 
 ### Fixed
 - App icon url in the action metadata
