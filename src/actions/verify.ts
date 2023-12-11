@@ -6,15 +6,10 @@ import {
   MessageFlags,
 } from '@collabland/discord'
 import { DiscordActionRequest } from '@collabland/discord'
-import { join } from 'path'
 
 import { config } from '@/config'
 
 export const handleVerifyAction = async (interaction: DiscordActionRequest) => {
-  const host = config.appUrl.includes('localhost')
-    ? 'https://collabland.robotornot.mainnet-beta.rarimo.com'
-    : config.appUrl
-
   const response: APIInteractionResponse = {
     type: InteractionResponseType.ChannelMessageWithSource,
     data: {
@@ -40,7 +35,11 @@ export const handleVerifyAction = async (interaction: DiscordActionRequest) => {
           ],
           // https://gist.github.com/thomasbnt/b6f455e2c7d743b796917fa3c205f812
           color: 3447003,
-          image: { url: join(host, '/thumbnail.png'), height: 512, width: 896 },
+          image: {
+            url: 'https://raw.githubusercontent.com/rarimo/collabland-rarimo-poh-action/main/public/thumbnail.png',
+            height: 512,
+            width: 896,
+          },
         },
       ],
       components: [
