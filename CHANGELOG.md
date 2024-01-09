@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog], and this project adheres to [Semantic Versioning].
 
+## [1.0.2] - 2024-01-09
+### Fixed
+- Action metadata icon url
 
 ## [1.0.1] - 2023-12-11
 ### Changed
@@ -28,7 +31,8 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 - Initiated project
 
-[Unreleased]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/1.0.1...HEAD
+[Unreleased]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/1.0.2...HEAD
+[1.0.2]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/0.1.0...1.0.0
 [0.1.0]: https://github.com/rarimo/collabland-rarimo-poh-action/releases/tag/0.1.0

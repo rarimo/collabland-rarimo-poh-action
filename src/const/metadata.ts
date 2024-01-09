@@ -1,6 +1,5 @@
 import { ApplicationCommandType, DiscordActionMetadata, InteractionType } from '@collabland/discord'
 import { MiniAppManifest } from '@collabland/models'
-import { join } from 'path'
 
 import PackageJson from '@/../package.json'
 import { config } from '@/config'
@@ -9,7 +8,7 @@ const keywords = ['verification', 'rarimo', 'proof-of-humanity']
 
 const appIcon = {
   label: 'Rarimo Proof of Humanity Action',
-  src: join(config.appUrl, '/logo.png'),
+  src: new URL('/logo.png', config.appUrl).toString(),
   sizes: '186x186',
 }
 
