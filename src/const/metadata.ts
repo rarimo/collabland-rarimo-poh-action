@@ -61,7 +61,7 @@ export const METADATA: DiscordActionMetadata = {
       },
       name: 'verify',
       type: ApplicationCommandType.ChatInput,
-      description: 'Allows you to verify your humanity with Rarimo Proof of Humanity use case',
+      description: 'Redirects you to Proof of Humanity DApp for verification',
       options: [],
     },
   ],
