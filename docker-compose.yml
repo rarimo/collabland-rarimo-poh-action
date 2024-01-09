@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   rarimo-poh:
-    image: rarimo-poh:latest
+    image: ghcr.io/rarimo/collabland-rarimo-poh-action:devnet-62e81efd9488c8eb70b6c4b7da6b9cdecf644902
     restart: unless-stopped
     entrypoint: sh -c "node_modules/.bin/next start"
     ports:
