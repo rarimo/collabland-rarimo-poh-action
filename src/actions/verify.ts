@@ -9,7 +9,7 @@ import { DiscordActionRequest } from '@collabland/discord'
 
 import { config } from '@/config'
 
-export const handleVerifyAction = async (_: DiscordActionRequest) => {
+export const handleVerifyAction = async (interaction: DiscordActionRequest) => {
   const response: APIInteractionResponse = {
     type: InteractionResponseType.ChannelMessageWithSource,
     data: {
@@ -17,8 +17,7 @@ export const handleVerifyAction = async (_: DiscordActionRequest) => {
       flags: MessageFlags.Ephemeral,
       embeds: [
         {
-          // title: `Welcome to ${interaction?.actionContext?.guildName}!`,
-          title: `Welcome to Rarimo server!`,
+          title: `Welcome to ${interaction?.actionContext?.guildName}!`,
           description: 'To prove your humanity, please follow these steps:',
           fields: [
             {
