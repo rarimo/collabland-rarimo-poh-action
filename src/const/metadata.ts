@@ -6,10 +6,8 @@ import { config } from '@/config'
 
 const keywords = ['verification', 'rarimo', 'proof-of-humanity']
 
-const appIcon = {
-  label: 'Rarimo Proof of Humanity Action',
-  src: new URL('/logo.png', config.appUrl).toString(),
-  sizes: '186x186',
+const craftPublicImgUrl = (imgName: string): string => {
+  return new URL(`/${imgName}`, config.appUrl).toString()
 }
 
 const manifest = new MiniAppManifest({
@@ -28,8 +26,25 @@ const manifest = new MiniAppManifest({
   website: config.pohAppUrl,
   keywords,
   tags: keywords,
-  thumbnails: [appIcon],
-  icons: [appIcon],
+  thumbnails: [
+    {
+      label: 'Rarimo Proof of Humanity App',
+      src: craftPublicImgUrl('thumbnail-robotornot.png'),
+      sizes: '3576x1946',
+    },
+    {
+      label: 'Verify Discord Action message',
+      src: craftPublicImgUrl('thumbnail-discord-verify-msg.png'),
+      sizes: '1338x1368',
+    },
+  ],
+  icons: [
+    {
+      label: 'Rarimo Proof of Humanity Action',
+      src: craftPublicImgUrl('logo.png'),
+      sizes: '186x186',
+    },
+  ],
 })
 
 export const METADATA: DiscordActionMetadata = {
