@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog], and this project adheres to [Semantic Versioning].
 
+## [Unreleased]
+### Changed
+- Update GitHub Action Secret EVN_TESTNET with the received public key
+
 ## [1.0.3] - 2024-01-10
 ### Added
 - Thumbnail images
