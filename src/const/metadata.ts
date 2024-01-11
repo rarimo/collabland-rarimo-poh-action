@@ -10,6 +10,8 @@ const craftPublicImgUrl = (imgName: string): string => {
   return new URL(`/${imgName}`, config.appUrl).toString()
 }
 
+export const VERIFY_ACTION_NAME = 'rarimo-verify'
+
 const manifest = new MiniAppManifest({
   appId: PackageJson.name,
   name: 'Proof of Humanity',
@@ -60,7 +62,7 @@ export const METADATA: DiscordActionMetadata = {
     {
       // Handle verify <role> slash command
       type: InteractionType.ApplicationCommand,
-      names: ['verify'],
+      names: [VERIFY_ACTION_NAME],
     },
   ],
   /**
@@ -71,10 +73,10 @@ export const METADATA: DiscordActionMetadata = {
     {
       metadata: {
         name: 'Verify your humanity with Rarimo',
-        shortName: 'verify',
+        shortName: VERIFY_ACTION_NAME,
         supportedEnvs: ['production', 'development'],
       },
-      name: 'verify',
+      name: VERIFY_ACTION_NAME,
       type: ApplicationCommandType.ChatInput,
       description: 'Redirects you to Proof of Humanity DApp for verification',
       options: [],

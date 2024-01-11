@@ -4,8 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog], and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
+
+## [1.0.4] - 2024-01-11
 ### Changed
-- Update GitHub Action Secret EVN_TESTNET with the received public key
+- Rename `/verify` to `/rarimo-verify` action
 
 ## [1.0.3] - 2024-01-10
 ### Added
@@ -42,7 +44,8 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 - Initiated project
 
-[Unreleased]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/1.0.3...HEAD
+[Unreleased]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/1.0.4...HEAD
+[1.0.4]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/1.0.3...1.0.4
 [1.0.3]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/1.0.0...1.0.1

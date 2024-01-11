@@ -1,6 +1,6 @@
 <div align="center"><h1><b>Rarimo Proof of Humanity Collab.Land Action</b></h1></div>
 
-This repo implements an [Collab.Land] action that adds `/verify` command to your Discord server and
+This repo implements an [Collab.Land] action that adds `/rarimo-verify` command to your Discord server and
 allow members to verify their humanity using the [Rarimo Proof of Humanity] case.
 
 ## Table of Contents
@@ -133,16 +133,16 @@ services:
 ## Installing the Collab.Land actions
 
 - Follow these steps to install the Collab.Land actions: [Test the Actions in a Discord server]
-- Verify your humanity with the `/verify` command
+- Verify your humanity with the `/rarimo-verify` command
 
 ## API Specifications
 
 - The API exposes two routes per slash command:
-  - GET `/verify/metadata`: To provide the metadata for the `/verify` command
-  - POST `/verify/interactions`: To handle the Discord interactions corresponding to the `/verify`
+  - GET `/verify/metadata`: To provide the metadata for the `/rarimo-verify` command
+  - POST `/verify/interactions`: To handle the Discord interactions corresponding to the `/rarimo-verify`
     command
 - The slash commands provide example codes for the following Discord interactions:
-  - `/verify`: Verify your humanity with Rarimo Proof of Humanity use case and get the verified role
+  - `/rarimo-verify`: Verify your humanity with Rarimo Proof of Humanity use case and get the verified role
     in your Discord server.
 
 ## Contributing
