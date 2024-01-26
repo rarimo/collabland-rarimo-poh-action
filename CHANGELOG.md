@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ## [Unreleased]
 
+## [1.0.5] - 2024-01-26
+### Changed
+- Update a production public key
+
 ## [1.0.4] - 2024-01-11
 ### Changed
 - Rename `/verify` to `/rarimo-verify` action
@@ -44,7 +48,8 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 - Initiated project
 
-[Unreleased]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/1.0.4...HEAD
+[Unreleased]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/1.0.5...HEAD
+[1.0.5]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/1.0.4...1.0.5
 [1.0.4]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/1.0.3...1.0.4
 [1.0.3]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/rarimo/collabland-rarimo-poh-action/compare/1.0.1...1.0.2

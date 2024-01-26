@@ -1,7 +1,7 @@
 {
   "name": "collabland-rarimo-poh-action",
   "description": "Implementation of the Collab.Land action /rarimo-verify command for the Discord server which allows members to verify their humanity using the Rarimo Proof of Humanity case.",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": true,
   "license": "MIT",
   "author": "Zero Block Global Foundation",
